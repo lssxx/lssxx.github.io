@@ -28,11 +28,11 @@
 <meta property="og:description" content="报错1Parameter 0 of method myJob in com.demo.job.DataFlowJobConfig required a bean of type &#39;MyJob&#39; that could not be found. 代码123456789101112131415161718192021@Configurationpublic class DataFlow">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-01T06:35:13.000Z">
-<meta property="article:modified_time" content="2020-10-08T09:22:03.280Z">
+<meta property="article:modified_time" content="2020-10-09T00:31:56.870Z">
 <meta property="article:author" content="Sam">
+<meta property="article:tag" content="踩坑记录">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Springboot">
-<meta property="article:tag" content="踩坑记录">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/">
@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-08 17:22:03" itemprop="dateModified" datetime="2020-10-08T17:22:03+08:00">2020-10-08</time>
+                <time title="修改时间：2020-10-09 08:31:56" itemprop="dateModified" datetime="2020-10-09T08:31:56+08:00">2020-10-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -211,6 +211,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/01/@Configuration无法注入Bean/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -232,7 +246,9 @@
 <p>但是这个方案只是治标不治本，无法了解真正的原因。</p>
 </li>
 </ol>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>上述方案3给了我灵感，仔细看应用启动日志发现</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><a id="more"></a>
+
+<p>上述方案3给了我灵感，仔细看应用启动日志发现</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.support.DefaultListableBeanFactory.registerBeanDefinition:828 - Overriding bean definition for bean &#39;myJob&#39; with a different definition: replacing [Generic bean: class [com.demo.job.MyJob]; scope&#x3D;singleton; abstract&#x3D;false; lazyInit&#x3D;false; autowireMode&#x3D;0; dependencyCheck&#x3D;0; autowireCandidate&#x3D;true; primary&#x3D;false; factoryBeanName&#x3D;null; factoryMethodName&#x3D;null; initMethodName&#x3D;null; destroyMethodName&#x3D;null; defined in file [...]] with [Root bean: class [null]; scope&#x3D;; abstract&#x3D;false; lazyInit&#x3D;false; autowireMode&#x3D;3; dependencyCheck&#x3D;0; autowireCandidate&#x3D;true; primary&#x3D;false; factoryBeanName&#x3D;dataFlowJobConfig; factoryMethodName&#x3D;myJob; initMethodName&#x3D;init; destroyMethodName&#x3D;(inferred); defined in class path resource [...]]</span><br></pre></td></tr></table></figure>
 <p>要注入的类<code>MyJob</code>已经存在重名的beanName！定睛一看，初始化的JobScheduler的beanName正好是<code>myJob</code>，重命名为<code>public JobScheduler myJobScheduler()</code>后问题解决！坑自己没商量😂</p>
 <h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>仔细阅读</p>
@@ -249,9 +265,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" rel="tag"># 踩坑记录</a>
               <a href="/tags/Java/" rel="tag"># Java</a>
               <a href="/tags/Springboot/" rel="tag"># Springboot</a>
-              <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" rel="tag"># 踩坑记录</a>
           </div>
 
         
@@ -276,6 +292,13 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -442,6 +465,37 @@
   
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://disqus_FAIPDO9AOx.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/";
+    this.page.identifier = "2020/09/01/@Configuration无法注入Bean/";
+    this.page.title = "@Configuration无法注入Bean";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://disqus_FAIPDO9AOx.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>

@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-08 17:22:03" itemprop="dateModified" datetime="2020-10-08T17:22:03+08:00">2020-10-08</time>
+                <time title="修改时间：2020-10-09 08:31:56" itemprop="dateModified" datetime="2020-10-09T08:31:56+08:00">2020-10-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -207,6 +207,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/01/@Configuration无法注入Bean/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -228,15 +242,15 @@
 <p>但是这个方案只是治标不治本，无法了解真正的原因。</p>
 </li>
 </ol>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>上述方案3给了我灵感，仔细看应用启动日志发现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.support.DefaultListableBeanFactory.registerBeanDefinition:828 - Overriding bean definition for bean &#39;myJob&#39; with a different definition: replacing [Generic bean: class [com.demo.job.MyJob]; scope&#x3D;singleton; abstract&#x3D;false; lazyInit&#x3D;false; autowireMode&#x3D;0; dependencyCheck&#x3D;0; autowireCandidate&#x3D;true; primary&#x3D;false; factoryBeanName&#x3D;null; factoryMethodName&#x3D;null; initMethodName&#x3D;null; destroyMethodName&#x3D;null; defined in file [...]] with [Root bean: class [null]; scope&#x3D;; abstract&#x3D;false; lazyInit&#x3D;false; autowireMode&#x3D;3; dependencyCheck&#x3D;0; autowireCandidate&#x3D;true; primary&#x3D;false; factoryBeanName&#x3D;dataFlowJobConfig; factoryMethodName&#x3D;myJob; initMethodName&#x3D;init; destroyMethodName&#x3D;(inferred); defined in class path resource [...]]</span><br></pre></td></tr></table></figure>
-<p>要注入的类<code>MyJob</code>已经存在重名的beanName！定睛一看，初始化的JobScheduler的beanName正好是<code>myJob</code>，重命名为<code>public JobScheduler myJobScheduler()</code>后问题解决！坑自己没商量😂</p>
-<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>仔细阅读</p>
-<p><code>org.springframework.beans.factory.support.DefaultListableBeanFactory.DefaultListableBeanFactory</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinition</span><span class="params">(String beanName, BeanDefinition beanDefinition)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">      </span><br><span class="line">    BeanDefinition oldBeanDefinition;</span><br><span class="line"></span><br><span class="line">    oldBeanDefinition = <span class="keyword">this</span>.beanDefinitionMap.get(beanName);</span><br><span class="line">    <span class="keyword">if</span> (oldBeanDefinition != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!isAllowBeanDefinitionOverriding()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,</span><br><span class="line">                    <span class="string">&quot;Cannot register bean definition [&quot;</span> + beanDefinition + <span class="string">&quot;] for bean &#x27;&quot;</span> + beanName +</span><br><span class="line">                    <span class="string">&quot;&#x27;: There is already [&quot;</span> + oldBeanDefinition + <span class="string">&quot;] bound.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (oldBeanDefinition.getRole() &lt; beanDefinition.getRole()) &#123;</span><br><span class="line">            <span class="comment">// e.g. was ROLE_APPLICATION, now overriding with ROLE_SUPPORT or ROLE_INFRASTRUCTURE</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.logger.isWarnEnabled()) &#123;</span><br><span class="line">                <span class="keyword">this</span>.logger.warn(<span class="string">&quot;Overriding user-defined bean definition for bean &#x27;&quot;</span> + beanName +</span><br><span class="line">                        <span class="string">&quot;&#x27; with a framework-generated bean definition: replacing [&quot;</span> +</span><br><span class="line">                        oldBeanDefinition + <span class="string">&quot;] with [&quot;</span> + beanDefinition + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!beanDefinition.equals(oldBeanDefinition)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.logger.isInfoEnabled()) &#123;</span><br><span class="line">                <span class="keyword">this</span>.logger.info(<span class="string">&quot;Overriding bean definition for bean &#x27;&quot;</span> + beanName +</span><br><span class="line">                        <span class="string">&quot;&#x27; with a different definition: replacing [&quot;</span> + oldBeanDefinition +</span><br><span class="line">                        <span class="string">&quot;] with [&quot;</span> + beanDefinition + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.logger.isDebugEnabled()) &#123;</span><br><span class="line">                <span class="keyword">this</span>.logger.debug(<span class="string">&quot;Overriding bean definition for bean &#x27;&quot;</span> + beanName +</span><br><span class="line">                        <span class="string">&quot;&#x27; with an equivalent definition: replacing [&quot;</span> + oldBeanDefinition +</span><br><span class="line">                        <span class="string">&quot;] with [&quot;</span> + beanDefinition + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.beanDefinitionMap.put(beanName, beanDefinition);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (hasBeanCreationStarted()) &#123;</span><br><span class="line">            <span class="comment">// Cannot modify startup-time collection elements anymore (for stable iteration)</span></span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>.beanDefinitionMap) &#123;</span><br><span class="line">                <span class="keyword">this</span>.beanDefinitionMap.put(beanName, beanDefinition);</span><br><span class="line">                List&lt;String&gt; updatedDefinitions = <span class="keyword">new</span> ArrayList&lt;String&gt;(<span class="keyword">this</span>.beanDefinitionNames.size() + <span class="number">1</span>);</span><br><span class="line">                updatedDefinitions.addAll(<span class="keyword">this</span>.beanDefinitionNames);</span><br><span class="line">                updatedDefinitions.add(beanName);</span><br><span class="line">                <span class="keyword">this</span>.beanDefinitionNames = updatedDefinitions;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.manualSingletonNames.contains(beanName)) &#123;</span><br><span class="line">                    Set&lt;String&gt; updatedSingletons = <span class="keyword">new</span> LinkedHashSet&lt;String&gt;(<span class="keyword">this</span>.manualSingletonNames);</span><br><span class="line">                    updatedSingletons.remove(beanName);</span><br><span class="line">                    <span class="keyword">this</span>.manualSingletonNames = updatedSingletons;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// Still in startup registration phase</span></span><br><span class="line">            <span class="keyword">this</span>.beanDefinitionMap.put(beanName, beanDefinition);</span><br><span class="line">            <span class="keyword">this</span>.beanDefinitionNames.add(beanName);</span><br><span class="line">            <span class="keyword">this</span>.manualSingletonNames.remove(beanName);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.frozenBeanDefinitionNames = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (oldBeanDefinition != <span class="keyword">null</span> || containsSingleton(beanName)) &#123;</span><br><span class="line">        resetBeanDefinition(beanName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2个重要参数<code>DefaultListableBeanFactory#isAllowBeanDefinitionOverriding</code>和<code>DefaultListableBeanFactory#role</code></p>
-
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -286,7 +300,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-08 17:23:38" itemprop="dateModified" datetime="2020-10-08T17:23:38+08:00">2020-10-08</time>
+                <time title="修改时间：2020-10-09 09:00:38" itemprop="dateModified" datetime="2020-10-09T09:00:38+08:00">2020-10-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,6 +313,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/01/09/%E6%89%BE%E5%9B%9E%E6%9C%AA%E5%AE%8C%E5%85%A8commit%E6%88%90%E5%8A%9F%E7%9A%84%E6%96%87%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/09/找回未完全commit成功的文件/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -311,16 +339,19 @@
       
           <h3 id="现象描述"><a href="#现象描述" class="headerlink" title="现象描述"></a>现象描述</h3><p>在分支feature-XXX新增、修改了文件，执行 git commit，未执行完commit操作就切换另一个分支。feature-XXX修改的文件提示冲突，选择了force-checkout，再切回feature-XXX分支，最新的commit文件只有修改的文件，新增的文件都消失了！</p>
 <h3 id="恢复步骤"><a href="#恢复步骤" class="headerlink" title="恢复步骤"></a>恢复步骤</h3><ol>
-<li><p>执行命令，找到lost-found目录下的文件</p>
-<pre><code> ```git fsck --lost-found```</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Checking object directories: 100% (256&#x2F;256), done.</span><br><span class="line">Checking objects: 100% (2980&#x2F;2980), done.</span><br><span class="line">dangling blob fa04760d4141a83762777e91aedc39e7bfcbc9fa</span><br><span class="line">dangling blob 81c7bbfcc616472bb9e3602a7a044a68dcc205e0</span><br><span class="line">dangling blob 9768727ebcddb4a9a32d3ec4be2dc54e5a9cd95b</span><br><span class="line">dangling commit dbc8b94fd411cc08a645c5426bb5284772848889</span><br><span class="line">dangling commit 0252b3d4a5c456f8ea9d80f8c3fb17dc345337d4</span><br><span class="line">dangling commit 3c1252c132eb595692f78f9488c194a4400c92f9</span><br><span class="line">dangling commit 44b5aaf764c05f1cf6f63098fb3a06b7addc8384</span><br><span class="line">dangling commit 0a186167ab8c9d4d64fb0e1a98f4bdcc769390c1</span><br><span class="line">dangling commit 4e19ffa5f2f78a4d0433ec4e9176039dbcd49efa</span><br><span class="line">dangling blob d3796f4df0cf376c633a8c7f0d943fe06784f414</span><br><span class="line">dangling commit 08dc8e56af12307e9b4fda5013d2d801a63fceb5</span><br><span class="line">dangling commit 46dc11413137c0577af8257bc553a8c39ed7fff3</span><br><span class="line">dangling commit c37d7ddec4d47b0c6e9fe1bab1dfade81b951590</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>git show fa04760d4141a83762777e91aedc39e7bfcbc9fa</p>
-</li>
-<li><p>git show fa04760d4141a83762777e91aedc39e7bfcbc9fa &gt; filename 成功找回！</p>
-</li>
+<li>执行命令，找到lost-found目录下的文件</li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fsck --lost-found</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Checking object directories: 100% (256/256), <span class="keyword">done</span>.</span><br><span class="line">Checking objects: 100% (2980/2980), <span class="keyword">done</span>.</span><br><span class="line">dangling blob fa04760d4141a83762777e91aedc39e7bfcbc9fa</span><br><span class="line">dangling blob 81c7bbfcc616472bb9e3602a7a044a68dcc205e0</span><br><span class="line">dangling blob 9768727ebcddb4a9a32d3ec4be2dc54e5a9cd95b</span><br><span class="line">dangling commit dbc8b94fd411cc08a645c5426bb5284772848889</span><br><span class="line">dangling commit 0252b3d4a5c456f8ea9d80f8c3fb17dc345337d4</span><br><span class="line">dangling commit 3c1252c132eb595692f78f9488c194a4400c92f9</span><br><span class="line">dangling commit 44b5aaf764c05f1cf6f63098fb3a06b7addc8384</span><br><span class="line">dangling commit 0a186167ab8c9d4d64fb0e1a98f4bdcc769390c1</span><br><span class="line">dangling commit 4e19ffa5f2f78a4d0433ec4e9176039dbcd49efa</span><br><span class="line">dangling blob d3796f4df0cf376c633a8c7f0d943fe06784f414</span><br><span class="line">dangling commit 08dc8e56af12307e9b4fda5013d2d801a63fceb5</span><br><span class="line">dangling commit 46dc11413137c0577af8257bc553a8c39ed7fff3</span><br><span class="line">dangling commit c37d7ddec4d47b0c6e9fe1bab1dfade81b951590</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/09/%E6%89%BE%E5%9B%9E%E6%9C%AA%E5%AE%8C%E5%85%A8commit%E6%88%90%E5%8A%9F%E7%9A%84%E6%96%87%E4%BB%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -507,6 +538,17 @@
   
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://disqus_FAIPDO9AOx.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
 
 </body>
 </html>
