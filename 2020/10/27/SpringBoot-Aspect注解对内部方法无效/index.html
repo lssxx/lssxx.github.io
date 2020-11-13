@@ -20,18 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sam的博客">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="现象Controller调用Service方法A()，A调用ServiceImpl的公有方法B()。  对B()方法添加切面注解，不生效 对A()方法添加切面注解，生效  解决方案 不进行内部方法调用 启动类添加注解@EnableAspectJAutoProxy(exposeProxy &#x3D; true)，在A()中调用B()，由this.B()改为((Service) AopContext.curr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot @Aspect注解对内部方法无效">
+<meta property="og:url" content="http://example.com/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/index.html">
 <meta property="og:site_name" content="Sam的博客">
-<meta property="og:description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+<meta property="og:description" content="现象Controller调用Service方法A()，A调用ServiceImpl的公有方法B()。  对B()方法添加切面注解，不生效 对A()方法添加切面注解，生效  解决方案 不进行内部方法调用 启动类添加注解@EnableAspectJAutoProxy(exposeProxy &#x3D; true)，在A()中调用B()，由this.B()改为((Service) AopContext.curr">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-27T06:34:12.000Z">
+<meta property="article:modified_time" content="2020-10-27T09:50:10.951Z">
 <meta property="article:author" content="Sam">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="踩坑记录">
+<meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/">
+<link rel="canonical" href="http://example.com/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/">
 
 
 <script id="page-configurations">
@@ -39,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Sam的博客</title>
+  <title>SpringBoot @Aspect注解对内部方法无效 | Sam的博客</title>
   
 
 
@@ -157,196 +160,119 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot @Aspect注解对内部方法无效
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-27 14:34:12 / 修改时间：17:50:10" itemprop="dateCreated datePublished" datetime="2020-10-27T14:34:12+08:00">2020-10-27</time>
+            </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 8 篇日志。 继续努力。</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/27/SpringBoot-Aspect注解对内部方法无效/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>Controller调用Service方法A()，A调用ServiceImpl的公有方法B()。</p>
+<ul>
+<li>对B()方法添加切面注解，不生效</li>
+<li>对A()方法添加切面注解，生效</li>
+</ul>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li>不进行内部方法调用</li>
+<li>启动类添加注解<code>@EnableAspectJAutoProxy(exposeProxy = true)</code>，在A()中调用B()，由<code>this.B()</code>改为<code>((Service) AopContext.currentProxy()).B()</code></li>
+</ol>
+<h3 id="Spring的动态代理"><a href="#Spring的动态代理" class="headerlink" title="Spring的动态代理"></a>Spring的动态代理</h3>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-11-12T10:23:37+08:00"
-              content="2020-11-12">
-          11-12
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" rel="tag"># 踩坑记录</a>
+              <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/11/12/%E9%A6%96%E9%A1%B5/" itemprop="url">
-            <span itemprop="name">未命名</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-11-09T13:16:49+08:00"
-              content="2020-11-09">
-          11-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/11/09/git%E6%89%BE%E5%9B%9E%E8%A2%AB%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">git找回被远程仓库覆盖的本地文件</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-11-03T10:10:26+08:00"
-              content="2020-11-03">
-          11-03
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/11/03/leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">leetcode刷题笔记</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-11-03T09:48:28+08:00"
-              content="2020-11-03">
-          11-03
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/11/03/python%E6%89%8B%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">Python笔记-内置的数据结构</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-27T14:34:12+08:00"
-              content="2020-10-27">
-          10-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/" itemprop="url">
-            <span itemprop="name">SpringBoot @Aspect注解对内部方法无效</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-10T14:59:18+08:00"
-              content="2020-10-10">
-          10-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/10/10/ThreadLocal%E6%BB%A5%E7%94%A8%E5%BC%95%E5%8F%91%E7%9A%84bug/" itemprop="url">
-            <span itemprop="name">ThreadLocal滥用引发的Bug</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-01T14:35:13+08:00"
-              content="2020-09-01">
-          09-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/" itemprop="url">
-            <span itemprop="name">@Configuration无法注入Bean</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-09T10:44:26+08:00"
-              content="2020-01-09">
-          01-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/01/09/%E6%89%BE%E5%9B%9E%E6%9C%AA%E5%AE%8C%E5%85%A8commit%E6%88%90%E5%8A%9F%E7%9A%84%E6%96%87%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">找回lost-found文件夹下的文件</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        
 
 
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/10/ThreadLocal%E6%BB%A5%E7%94%A8%E5%BC%95%E5%8F%91%E7%9A%84bug/" rel="prev" title="ThreadLocal滥用引发的Bug">
+      <i class="fa fa-chevron-left"></i> ThreadLocal滥用引发的Bug
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/03/python%E6%89%8B%E8%AE%B0/" rel="next" title="Python笔记-内置的数据结构">
+      Python笔记-内置的数据结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
-  
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -393,6 +319,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring%E7%9A%84%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">Spring的动态代理</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -522,6 +449,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/";
+    this.page.identifier = "2020/10/27/SpringBoot-Aspect注解对内部方法无效/";
+    this.page.title = "SpringBoot @Aspect注解对内部方法无效";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samifie.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
