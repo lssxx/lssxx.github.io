@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+  <meta name="description" content="Never Stop Learning">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sam的博客">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Sam的博客">
-<meta property="og:description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+<meta property="og:description" content="Never Stop Learning">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Sam">
 <meta property="article:tag" content="Java">
@@ -163,12 +163,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/09/git%E6%89%BE%E5%9B%9E%E8%A2%AB%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/13/Redis%E9%94%81%E5%92%8CZK%E9%94%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar/siage.png">
       <meta itemprop="name" content="Sam">
-      <meta itemprop="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+      <meta itemprop="description" content="Never Stop Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -177,7 +177,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/09/git%E6%89%BE%E5%9B%9E%E8%A2%AB%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">git找回被远程仓库覆盖的本地文件</a>
+            <a href="/2021/07/13/Redis%E9%94%81%E5%92%8CZK%E9%94%81/" class="post-title-link" itemprop="url">Redis锁和ZK锁</a>
         </h2>
 
         <div class="post-meta">
@@ -186,18 +186,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-11-09 13:16:49 / 修改时间：13:25:46" itemprop="dateCreated datePublished" datetime="2020-11-09T13:16:49+08:00">2020-11-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
-                </span>
+              <time title="创建时间：2021-07-13 09:02:45" itemprop="dateCreated datePublished" datetime="2021-07-13T09:02:45+08:00">2021-07-13</time>
             </span>
 
           
@@ -209,8 +199,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/11/09/git%E6%89%BE%E5%9B%9E%E8%A2%AB%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/09/git找回被远程仓库覆盖的本地文件/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/07/13/Redis%E9%94%81%E5%92%8CZK%E9%94%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/13/Redis锁和ZK锁/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -225,15 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="现象描述"><a href="#现象描述" class="headerlink" title="现象描述"></a>现象描述</h3><p>本地commit还没push，就把远程同步到本地，导致本地commit记录消失！</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看本地操作记录</span></span><br><span class="line">git reflog</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ce58072 (HEAD -&gt; feature-V001R011, origin/feature-V001R011) HEAD@&#123;0&#125;: commit (amend): feature：this is a commit message</span><br><span class="line">2fef3cd HEAD@&#123;1&#125;: reset: moving to 2fef3cd</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard ce58072</span><br></pre></td></tr></table></figure>
-
-<p>问题解决！</p>
-
+          
       
     </div>
 
@@ -252,12 +234,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/03/leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/12/SpringCloud%E5%8A%A0%E8%BD%BDprofile/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar/siage.png">
       <meta itemprop="name" content="Sam">
-      <meta itemprop="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+      <meta itemprop="description" content="Never Stop Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -266,91 +248,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/03/leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">leetcode刷题笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-11-03 10:10:26 / 修改时间：17:56:08" itemprop="dateCreated datePublished" datetime="2020-11-03T10:10:26+08:00">2020-11-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/11/03/leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/03/leetcode刷题笔记/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p><strong>明确 base case -&gt; 明确「状态」-&gt; 明确「选择」 -&gt; 定义 dp 数组/函数的含义</strong>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化 base case</span></span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>][...] = base</span><br><span class="line"><span class="comment"># 进行状态转移</span></span><br><span class="line"><span class="keyword">for</span> 状态<span class="number">1</span> <span class="keyword">in</span> 状态<span class="number">1</span>的所有取值：</span><br><span class="line">    <span class="keyword">for</span> 状态<span class="number">2</span> <span class="keyword">in</span> 状态<span class="number">2</span>的所有取值：</span><br><span class="line">        <span class="keyword">for</span> ...</span><br><span class="line">            dp[状态<span class="number">1</span>][状态<span class="number">2</span>][...] = 求最值(选择<span class="number">1</span>，选择<span class="number">2.</span>..)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/03/python%E6%89%8B%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/avatar/siage.png">
-      <meta itemprop="name" content="Sam">
-      <meta itemprop="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sam的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/03/python%E6%89%8B%E8%AE%B0/" class="post-title-link" itemprop="url">Python笔记-内置的数据结构</a>
+            <a href="/2021/07/12/SpringCloud%E5%8A%A0%E8%BD%BDprofile/" class="post-title-link" itemprop="url">SpringCloud加载profile</a>
         </h2>
 
         <div class="post-meta">
@@ -360,24 +258,15 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-11-03 09:48:28" itemprop="dateCreated datePublished" datetime="2020-11-03T09:48:28+08:00">2020-11-03</time>
+              <time title="创建时间：2021-07-12 19:34:02" itemprop="dateCreated datePublished" datetime="2021-07-12T19:34:02+08:00">2021-07-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-05 15:28:24" itemprop="dateModified" datetime="2020-11-05T15:28:24+08:00">2020-11-05</time>
+                <time title="修改时间：2021-07-13 15:42:46" itemprop="dateModified" datetime="2021-07-13T15:42:46+08:00">2021-07-13</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
 
           
   
@@ -388,8 +277,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/11/03/python%E6%89%8B%E8%AE%B0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/03/python手记/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/07/12/SpringCloud%E5%8A%A0%E8%BD%BDprofile/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/12/SpringCloud加载profile/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -404,26 +293,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="内置数据结构"><a href="#内置数据结构" class="headerlink" title="内置数据结构"></a>内置数据结构</h2><p>模块：builtins.py</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list = [val1,val2,val3,val4]</span><br><span class="line">dict = &#123;key1:val1,key2:val2&#125;</span><br><span class="line">tuple = (val1,val2,val3,val4)</span><br><span class="line">set = &#123;val1,val2,val3,val4&#125;</span><br></pre></td></tr></table></figure>
+          <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.cloud.bootstrap.config.PropertySourceBootstrapConfiguration#initialize</span><br><span class="line">org.springframework.cloud.config.client.ConfigServicePropertySourceLocator#locate</span><br><span class="line">org.springframework.cloud.config.client.ConfigClientProperties#override</span><br></pre></td></tr></table></figure>
 
-<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><ul>
-<li>列表中元素是可变的(mutable)</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weekday = [<span class="string">&#x27;Mon&#x27;</span>,<span class="string">&#x27;Tue&#x27;</span>,<span class="string">&#x27;Wedn&#x27;</span>,<span class="string">&#x27;Thur&#x27;</span>,<span class="string">&#x27;Fri&#x27;</span>]</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>元素是有序的</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机访问</span></span><br><span class="line">print(weekday[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">weekday[<span class="number">0</span>] = <span class="string">&#x27;Sunday&#x27;</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/03/python%E6%89%8B%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -442,12 +314,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/12/%E5%AD%90%E6%96%B9%E6%B3%95%E6%97%A0%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar/siage.png">
       <meta itemprop="name" content="Sam">
-      <meta itemprop="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+      <meta itemprop="description" content="Never Stop Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -456,7 +328,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/" class="post-title-link" itemprop="url">SpringBoot @Aspect注解对内部方法无效</a>
+            <a href="/2021/07/12/%E5%AD%90%E6%96%B9%E6%B3%95%E6%97%A0%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">子方法无声明式事务</a>
         </h2>
 
         <div class="post-meta">
@@ -467,7 +339,16 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-10-27 14:34:12 / 修改时间：17:50:10" itemprop="dateCreated datePublished" datetime="2020-10-27T14:34:12+08:00">2020-10-27</time>
+              <time title="创建时间：2021-07-12 15:26:17 / 修改时间：15:28:14" itemprop="dateCreated datePublished" datetime="2021-07-12T15:26:17+08:00">2021-07-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">踩坑记录</span></a>
+                </span>
             </span>
 
           
@@ -479,8 +360,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/10/27/SpringBoot-Aspect%E6%B3%A8%E8%A7%A3%E5%AF%B9%E5%86%85%E9%83%A8%E6%96%B9%E6%B3%95%E6%97%A0%E6%95%88/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/27/SpringBoot-Aspect注解对内部方法无效/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/07/12/%E5%AD%90%E6%96%B9%E6%B3%95%E6%97%A0%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/12/子方法无声明式事务/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -495,16 +376,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>Controller调用Service方法A()，A调用ServiceImpl的公有方法B()。</p>
-<ul>
-<li>对B()方法添加切面注解，不生效</li>
-<li>对A()方法添加切面注解，生效</li>
-</ul>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
-<li>不进行内部方法调用</li>
-<li>启动类添加注解<code>@EnableAspectJAutoProxy(exposeProxy = true)</code>，在A()中调用B()，由<code>this.B()</code>改为<code>((Service) AopContext.currentProxy()).B()</code></li>
-</ol>
-<h3 id="Spring的动态代理"><a href="#Spring的动态代理" class="headerlink" title="Spring的动态代理"></a>Spring的动态代理</h3>
+          <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><blockquote>
+<p>方法A调用方法B，方法B发生异常事务却没有回滚</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">A</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  B();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">B</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
 
@@ -523,12 +400,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/10/ThreadLocal%E6%BB%A5%E7%94%A8%E5%BC%95%E5%8F%91%E7%9A%84bug/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/12/AOP%E5%8F%91%E7%94%9F%E5%BC%82%E5%B8%B8%E4%BC%9A%E6%80%8E%E6%A0%B7%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar/siage.png">
       <meta itemprop="name" content="Sam">
-      <meta itemprop="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+      <meta itemprop="description" content="Never Stop Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -537,7 +414,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/10/ThreadLocal%E6%BB%A5%E7%94%A8%E5%BC%95%E5%8F%91%E7%9A%84bug/" class="post-title-link" itemprop="url">ThreadLocal滥用引发的Bug</a>
+            <a href="/2021/07/12/AOP%E5%8F%91%E7%94%9F%E5%BC%82%E5%B8%B8%E4%BC%9A%E6%80%8E%E6%A0%B7%EF%BC%9F/" class="post-title-link" itemprop="url">AOP发生异常会怎样？</a>
         </h2>
 
         <div class="post-meta">
@@ -547,14 +424,173 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-10-10 14:59:18" itemprop="dateCreated datePublished" datetime="2020-10-10T14:59:18+08:00">2020-10-10</time>
+              <time title="创建时间：2021-07-12 14:58:16" itemprop="dateCreated datePublished" datetime="2021-07-12T14:58:16+08:00">2021-07-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-14 14:15:42" itemprop="dateModified" datetime="2020-10-14T14:15:42+08:00">2020-10-14</time>
+                <time title="修改时间：2021-11-13 16:38:53" itemprop="dateModified" datetime="2021-11-13T16:38:53+08:00">2021-11-13</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/07/12/AOP%E5%8F%91%E7%94%9F%E5%BC%82%E5%B8%B8%E4%BC%9A%E6%80%8E%E6%A0%B7%EF%BC%9F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/12/AOP发生异常会怎样？/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/06/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="Never Stop Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/06/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" class="post-title-link" itemprop="url">布隆过滤器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-06 10:15:35 / 修改时间：10:16:16" itemprop="dateCreated datePublished" datetime="2021-07-06T10:15:35+08:00">2021-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/07/06/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/06/布隆过滤器/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/28/%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="Never Stop Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/28/%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">主线程事务</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-28 10:32:42" itemprop="dateCreated datePublished" datetime="2021-06-28T10:32:42+08:00">2021-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 10:14:21" itemprop="dateModified" datetime="2021-07-06T10:14:21+08:00">2021-07-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -575,8 +611,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/10/10/ThreadLocal%E6%BB%A5%E7%94%A8%E5%BC%95%E5%8F%91%E7%9A%84bug/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/10/ThreadLocal滥用引发的bug/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/06/28/%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/06/28/主线程事务/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -591,12 +627,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近应用包进行了安全提测，由公司的安全部门进行渗透等一系列测试，其中有一个数据越权bug。正常的业务场景伪代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (未登录)</span><br><span class="line">  <span class="keyword">throw</span> 登录异常</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  根据当前登录人数据权限查询数据</span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>主线程进行数据库修改操作</p>
+<p>另起线程执行逻辑，未取到更新值</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 数据库操作</span></span><br><span class="line">  updateBD();</span><br><span class="line">  <span class="comment">// something()中查询updateBD()的结果</span></span><br><span class="line">  executor.execute(() -&gt; something())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>客户端访问Zuul网关，Zuul网关转发到内网进行具体应用的调用。</p>
-<h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>本地启动应用，未登录调用该接口，抛出业务异常。经过Zuul网关转发却能访问具体接口数据，一开始以为是网关转发出问题，没有将登录信息带给实际执行业务操作的应用。阅读了网关的鉴权Filter代码后，并无发现异常。</p>
-<p>仔细阅读</p>
 
       
     </div>
@@ -616,12 +652,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/03/MySQL%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8Bupdate%E8%AF%AD%E5%8F%A5%E5%A4%B1%E6%95%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar/siage.png">
       <meta itemprop="name" content="Sam">
-      <meta itemprop="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+      <meta itemprop="description" content="Never Stop Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -630,7 +666,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/" class="post-title-link" itemprop="url">@Configuration无法注入Bean</a>
+            <a href="/2021/06/03/MySQL%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8Bupdate%E8%AF%AD%E5%8F%A5%E5%A4%B1%E6%95%88/" class="post-title-link" itemprop="url">MySQL并发情况下update语句失效</a>
         </h2>
 
         <div class="post-meta">
@@ -640,14 +676,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-09-01 14:35:13" itemprop="dateCreated datePublished" datetime="2020-09-01T14:35:13+08:00">2020-09-01</time>
+              <time title="创建时间：2021-06-03 10:10:26" itemprop="dateCreated datePublished" datetime="2021-06-03T10:10:26+08:00">2021-06-03</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-14 14:12:55" itemprop="dateModified" datetime="2020-10-14T14:12:55+08:00">2020-10-14</time>
+                <time title="修改时间：2021-10-22 11:36:59" itemprop="dateModified" datetime="2021-10-22T11:36:59+08:00">2021-10-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -655,7 +691,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -668,8 +704,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/01/@Configuration无法注入Bean/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/06/03/MySQL%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8Bupdate%E8%AF%AD%E5%8F%A5%E5%A4%B1%E6%95%88/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/06/03/MySQL并发情况下update语句失效/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -684,26 +720,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Parameter 0 of method myJob in com.demo.job.DataFlowJobConfig required a bean of type &#39;MyJob&#39; that could not be found.</span><br></pre></td></tr></table></figure>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataFlowJobConfig</span> </span>&#123;</span><br><span class="line">  此处省略注入的配置参数</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">  <span class="meta">@Bean(initMethod = &quot;init&quot;)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> JobScheduler <span class="title">myJob</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            MyJob myJob,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@Value(&quot;$&#123;job.cron&#125;&quot;)</span> String cron,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@Value(&quot;$&#123;job.shardingTotalCount&#125;&quot;)</span> <span class="keyword">int</span> shardingTotalCount,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@Value(&quot;$&#123;job.shardingItemParameters&#125;&quot;)</span> String shardingItemParameters)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SpringJobScheduler(</span><br><span class="line">                myJob,</span><br><span class="line">                regCenter,</span><br><span class="line">                getLiteJobConfiguration(</span><br><span class="line">                        myJob.getClass(),</span><br><span class="line">                        cron,</span><br><span class="line">                        shardingTotalCount,</span><br><span class="line">                        shardingItemParameters));</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><ol>
-<li><p>注入Bean的实体类未标记@Component,@Service,@Controller,@Repository。此demo已标记，未解决✖️</p>
-</li>
-<li><p>启动类未添加扫描包@ComponentScan，此demo已添加，未解决✖️ </p>
-</li>
-<li><p>重命名注入的实体类，问题解决✅</p>
-<p>但是这个方案只是治标不治本，无法了解真正的原因。</p>
-</li>
-</ol>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/01/@Configuration%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>现有表结构如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`user`</span> (</span><br><span class="line">  <span class="string">`user_id`</span> <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">&#x27;用户id&#x27;</span>,</span><br><span class="line">  <span class="string">`status`</span> <span class="built_in">tinyint</span>(<span class="number">1</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`user_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+
+<p>表中有2条数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| user_id | status |</span><br><span class="line">|    1    |    0   |</span><br><span class="line">|    2    |    0   |</span><br></pre></td></tr></table></figure>
+
+<p>使用MyBatis进行以下操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ResultVO&lt;String&gt; <span class="title">update</span><span class="params">(Integer userId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 将userId=#&#123;userId&#125;的数据查出</span></span><br><span class="line">    User user = userMapper.findById(userId);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 将数据的status设为10（此时数据库的status仍是0）</span></span><br><span class="line">    user.setStatus(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 3. 将其它status=0的数据查出（本例子中预期修改的只有user_id=12的数据）</span></span><br><span class="line">    <span class="keyword">final</span> List&lt;User&gt; users = userMapper.findByCondition(User.builder().status(<span class="number">0</span>).build());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4. 将数据的status设为20</span></span><br><span class="line">  	<span class="keyword">for</span> (User u : users) &#123;    </span><br><span class="line">        u.setStatus(<span class="number">20</span>);</span><br><span class="line">        userMapper.update(u);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 程序运行结束后，数据库里的预期：</span></span><br><span class="line">    <span class="comment">// user_id=1的status=10</span></span><br><span class="line">    <span class="comment">// user_id=12的status=20</span></span><br><span class="line">    <span class="keyword">return</span> ResultVO.success(<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>开启2个线程同时运行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">2</span>;</span><br><span class="line">	Thread[] threads = <span class="keyword">new</span> Thread[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i] = <span class="keyword">new</span> Thread(() -&gt; userService.update(<span class="number">1</span>), <span class="string">&quot;test-&quot;</span> + i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i].start();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i].join();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行后，数据库里的数据结果竟然是</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| user_id | status  |</span><br><span class="line">|    1    |    20   |</span><br><span class="line">|    2    |    20   |</span><br></pre></td></tr></table></figure>
+
+<p>根本不符合预期！</p>
+<p>加上日志看看执行过程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ResultVO&lt;String&gt; <span class="title">update</span><span class="params">(Integer userId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 将userId=#&#123;userId&#125;的数据查出</span></span><br><span class="line">    User user = userMapper.findById(userId);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 将数据的status设为10（此时数据库的status仍是0）</span></span><br><span class="line">    user.setStatus(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">int</span> row = userMapper.update(user);</span><br><span class="line">		log.info(<span class="string">&quot;当前线程：&#123;&#125;, update status=10 执行结果: &#123;&#125;&quot;</span>, Thread.currentThread().getName(), row);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 3. 将其它status=0的数据查出（本例子中预期修改的只有user_id=12的数据）</span></span><br><span class="line">    <span class="keyword">final</span> List&lt;User&gt; users = userMapper.findByCondition(User.builder().status(<span class="number">0</span>).build());</span><br><span class="line">    log.info(<span class="string">&quot;当前线程：&#123;&#125;, 获取到用户数=&#123;&#125;&quot;</span>, Thread.currentThread().getName(), users.size());</span><br><span class="line">		</span><br><span class="line">  	<span class="comment">// 4. 将数据的status设为20</span></span><br><span class="line">    <span class="keyword">for</span> (User u : users) &#123;</span><br><span class="line">        u.setStatus(<span class="number">20</span>);</span><br><span class="line">        userMapper.update(u);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 程序运行结束后，数据库里的预期：</span></span><br><span class="line">    <span class="comment">// user_id=1的status=10</span></span><br><span class="line">    <span class="comment">// user_id=12的status=20</span></span><br><span class="line">    <span class="keyword">return</span> ResultVO.success(<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">10</span>:<span class="number">52.276</span> INFO ] [test-<span class="number">0</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">0</span>, update status=<span class="number">10</span> 执行结果: <span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">10</span>:<span class="number">52.295</span> INFO ] [test-<span class="number">0</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">0</span>, 获取到用户数=<span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">10</span>:<span class="number">55.306</span> INFO ] [test-<span class="number">1</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">1</span>, update status=<span class="number">10</span> 执行结果: <span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">10</span>:<span class="number">55.308</span> INFO ] [test-<span class="number">1</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">1</span>, 获取到用户数=<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>线程<code>test-1</code>执行第一个update语句明明返回成功啊，为什么还能再被查出来呢？难道update语句没有生效？在JDBC连接加上<code>useAffectedRows </code>看看</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jdbc</span>:<span class="string">mysql://$&#123;jdbc.host&#125;/$&#123;jdbc.db&#125;?useAffectedRows=true</span></span><br></pre></td></tr></table></figure>
+
+<p>再执行下看下日志</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">15</span>:<span class="number">24.935</span> INFO ] [test-<span class="number">0</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">0</span>, update status=<span class="number">10</span> 执行结果: <span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">15</span>:<span class="number">24.952</span> INFO ] [test-<span class="number">0</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">0</span>, 获取到用户数=<span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">15</span>:<span class="number">27.974</span> INFO ] [test-<span class="number">1</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">1</span>, update status=<span class="number">10</span> 执行结果: <span class="number">0</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">15</span>:<span class="number">27.977</span> INFO ] [test-<span class="number">1</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">1</span>, 获取到用户数=<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>果然，步骤2的update语句根本没有成功，导致步骤3查询出了2条数据，所以无法得到预期的结果。我执行了多次，发现第二个线程总是无法正确得到预期的结果。这到底是为什么呢？</p>
+<p>搜了很多资料，其中有个<a target="_blank" rel="noopener" href="https://segmentfault.com/u/jamesfancy">segmentfault的前辈</a>说了这么一句话，点醒了我</p>
+<blockquote>
+<p>如果更新数是 0 只能说明没更新任何数据，一般来说有两个原因：</p>
+<p>一个是按 WHERE 条件没找到要更新的数据；</p>
+<p>另一个原因是找到了，但是新数据和数据库里存的数据是一样的。</p>
+</blockquote>
+<p>首先排除WHERE条件没找到数据的情况，那么说明第二个线程执行步骤2的时候，库里的userId=1的status已经是10了。</p>
+<p>本例子使用的数据库隔离级别是Repeatable-Read，可重复读，事务一致性视图是在执行第一个快照读语句时创建的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.187</span> DEBUG] [test-<span class="number">1</span>] org.mybatis.spring.SqlSessionUtils.debug - Creating a <span class="keyword">new</span> SqlSession</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.187</span> DEBUG] [test-<span class="number">0</span>] org.mybatis.spring.SqlSessionUtils.debug - Creating a <span class="keyword">new</span> SqlSession</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.208</span> DEBUG] [test-<span class="number">1</span>] org.mybatis.spring.SqlSessionUtils.debug - Registering transaction synchronization <span class="keyword">for</span> SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@<span class="number">711</span>a1035]</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.208</span> DEBUG] [test-<span class="number">0</span>] org.mybatis.spring.SqlSessionUtils.debug - Registering transaction synchronization <span class="keyword">for</span> SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@<span class="number">117d</span>5ca4]</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.253</span> DEBUG] [test-<span class="number">1</span>] org.mybatis.spring.transaction.SpringManagedTransaction.debug - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@<span class="number">31</span>ca104f] will be managed by Spring</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.253</span> DEBUG] [test-<span class="number">0</span>] org.mybatis.spring.transaction.SpringManagedTransaction.debug - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@<span class="number">52f</span>61067] will be managed by Spring</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.258</span> DEBUG] [test-<span class="number">0</span>] com.local.mapper.UserMapper.findById.debug - ==&gt;  Preparing: select `user_id`,`name`,`age`,`status` from user where user_id = ?</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.258</span> DEBUG] [test-<span class="number">1</span>] com.local.mapper.UserMapper.findById.debug - ==&gt;  Preparing: select `user_id`,`name`,`age`,`status` from user where user_id = ?</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.289</span> DEBUG] [test-<span class="number">1</span>] com.local.mapper.UserMapper.findById.debug - ==&gt; Parameters: <span class="number">1</span>(Integer)</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.289</span> DEBUG] [test-<span class="number">0</span>] com.local.mapper.UserMapper.findById.debug - ==&gt; Parameters: <span class="number">1</span>(Integer)</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.302</span> DEBUG] [test-<span class="number">0</span>] com.local.mapper.UserMapper.findById.debug - &lt;==      Total: <span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.302</span> DEBUG] [test-<span class="number">1</span>] com.local.mapper.UserMapper.findById.debug - &lt;==      Total: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，线程0和线程1<code>select</code>语句几乎是同时启动的，可以认为他们的事务视图是一致的，即2个事务视图读到的2条记录都是status=0的数据。</p>
+<p>由于有并发情况存在，执行update语句时，无论是哪个线程率先执行了步骤2的更新语句，另一个线程必须阻塞等待释放锁，即第一个线程commit后，第二个线程才可以继续对同一条数据进行更新操作。</p>
+<p>那么第二个线程的update语句为什么Affected rows是0呢，这是因为<code>update</code>、<code>insert</code>、<code>select</code>语句是<code>当前读</code>，即每次读取最新的版本，也就是别的事务提交的数据你也可以看到。在本例子中，第二个线程进行步骤2的update操作时，发现当前<code>status</code>已经是10了，所以不会进行更新操作，返回的Affected rows就是0了！</p>
+<p>而<code>select</code>语句使用的是<code>快照读</code>，所以当执行步骤3<code>select</code>语句的时候，读取到status=0的数据，仍然是事务开始创建时的那2条数据。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>使用<code>select xxx for update;</code> 或 <code>select xxx lock in share mode;</code> 可以强制使用<code>当前读</code></p>
+<h3 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a>参考阅读</h3><p>《MySQL实战45讲》——丁奇</p>
+
       
     </div>
 
@@ -722,12 +783,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/01/09/%E6%89%BE%E5%9B%9E%E6%9C%AA%E5%AE%8C%E5%85%A8commit%E6%88%90%E5%8A%9F%E7%9A%84%E6%96%87%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/20/%E5%9C%A8Idea%E4%B8%AD%E8%B0%83%E8%AF%95jar%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar/siage.png">
       <meta itemprop="name" content="Sam">
-      <meta itemprop="description" content="菜鸟一枚，有错误麻烦指出，不胜感激～">
+      <meta itemprop="description" content="Never Stop Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -736,7 +797,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/01/09/%E6%89%BE%E5%9B%9E%E6%9C%AA%E5%AE%8C%E5%85%A8commit%E6%88%90%E5%8A%9F%E7%9A%84%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">找回lost-found文件夹下的文件</a>
+            <a href="/2021/04/20/%E5%9C%A8Idea%E4%B8%AD%E8%B0%83%E8%AF%95jar%E5%8C%85/" class="post-title-link" itemprop="url">在Idea中调试jar包</a>
         </h2>
 
         <div class="post-meta">
@@ -746,14 +807,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-01-09 10:44:26" itemprop="dateCreated datePublished" datetime="2020-01-09T10:44:26+08:00">2020-01-09</time>
+              <time title="创建时间：2021-04-20 12:35:43" itemprop="dateCreated datePublished" datetime="2021-04-20T12:35:43+08:00">2021-04-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-09 09:00:38" itemprop="dateModified" datetime="2020-10-09T09:00:38+08:00">2020-10-09</time>
+                <time title="修改时间：2021-07-06 10:13:54" itemprop="dateModified" datetime="2021-07-06T10:13:54+08:00">2021-07-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -761,7 +822,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
             </span>
 
@@ -774,8 +835,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/01/09/%E6%89%BE%E5%9B%9E%E6%9C%AA%E5%AE%8C%E5%85%A8commit%E6%88%90%E5%8A%9F%E7%9A%84%E6%96%87%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/09/找回未完全commit成功的文件/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/04/20/%E5%9C%A8Idea%E4%B8%AD%E8%B0%83%E8%AF%95jar%E5%8C%85/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/20/在Idea中调试jar包/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -790,21 +851,207 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="现象描述"><a href="#现象描述" class="headerlink" title="现象描述"></a>现象描述</h3><p>在分支feature-XXX新增、修改了文件，执行 git commit，未执行完commit操作就切换另一个分支。feature-XXX修改的文件提示冲突，选择了force-checkout，再切回feature-XXX分支，最新的commit文件只有修改的文件，新增的文件都消失了！</p>
-<h3 id="恢复步骤"><a href="#恢复步骤" class="headerlink" title="恢复步骤"></a>恢复步骤</h3><ol>
-<li>执行命令，找到lost-found目录下的文件</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fsck --lost-found</span><br></pre></td></tr></table></figure>
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,<span class="built_in">suspend</span>=y -jar xxx.jar</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Checking object directories: 100% (256/256), <span class="keyword">done</span>.</span><br><span class="line">Checking objects: 100% (2980/2980), <span class="keyword">done</span>.</span><br><span class="line">dangling blob fa04760d4141a83762777e91aedc39e7bfcbc9fa</span><br><span class="line">dangling blob 81c7bbfcc616472bb9e3602a7a044a68dcc205e0</span><br><span class="line">dangling blob 9768727ebcddb4a9a32d3ec4be2dc54e5a9cd95b</span><br><span class="line">dangling commit dbc8b94fd411cc08a645c5426bb5284772848889</span><br><span class="line">dangling commit 0252b3d4a5c456f8ea9d80f8c3fb17dc345337d4</span><br><span class="line">dangling commit 3c1252c132eb595692f78f9488c194a4400c92f9</span><br><span class="line">dangling commit 44b5aaf764c05f1cf6f63098fb3a06b7addc8384</span><br><span class="line">dangling commit 0a186167ab8c9d4d64fb0e1a98f4bdcc769390c1</span><br><span class="line">dangling commit 4e19ffa5f2f78a4d0433ec4e9176039dbcd49efa</span><br><span class="line">dangling blob d3796f4df0cf376c633a8c7f0d943fe06784f414</span><br><span class="line">dangling commit 08dc8e56af12307e9b4fda5013d2d801a63fceb5</span><br><span class="line">dangling commit 46dc11413137c0577af8257bc553a8c39ed7fff3</span><br><span class="line">dangling commit c37d7ddec4d47b0c6e9fe1bab1dfade81b951590</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/09/%E6%89%BE%E5%9B%9E%E6%9C%AA%E5%AE%8C%E5%85%A8commit%E6%88%90%E5%8A%9F%E7%9A%84%E6%96%87%E4%BB%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/09/%E5%88%86%E5%B8%83%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="Never Stop Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/09/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-title-link" itemprop="url">分布式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-09 11:24:44 / 修改时间：11:27:29" itemprop="dateCreated datePublished" datetime="2021-03-09T11:24:44+08:00">2021-03-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/03/09/%E5%88%86%E5%B8%83%E5%BC%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/09/分布式/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><h4 id="1-Redis锁"><a href="#1-Redis锁" class="headerlink" title="1. Redis锁"></a>1. Redis锁</h4><h4 id="2-zk锁"><a href="#2-zk锁" class="headerlink" title="2. zk锁"></a>2. zk锁</h4><h3 id="拓展知识"><a href="#拓展知识" class="headerlink" title="拓展知识"></a>拓展知识</h3><h4 id="1-雪花算法"><a href="#1-雪花算法" class="headerlink" title="1. 雪花算法"></a>1. 雪花算法</h4><h4 id="2-UUID"><a href="#2-UUID" class="headerlink" title="2. UUID"></a>2. UUID</h4>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/Java%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="Never Stop Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/Java%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Java基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 16:08:45" itemprop="dateCreated datePublished" datetime="2021-01-15T16:08:45+08:00">2021-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 10:02:16" itemprop="dateModified" datetime="2021-07-06T10:02:16+08:00">2021-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/01/15/Java%E5%9F%BA%E7%A1%80/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/15/Java基础/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Java基础命令"><a href="#Java基础命令" class="headerlink" title="Java基础命令"></a>Java基础命令</h3><ul>
+<li>javac</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javac Main.java</span><br><span class="line"><span class="comment"># 生成Main.class</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>java</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java Main</span><br><span class="line"><span class="comment"># 运行Main.class</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>javap</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javap -verbose Main &gt; result.txt</span><br><span class="line"><span class="comment"># 输出字节码并保存到result.txts</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="foreach语法糖"><a href="#foreach语法糖" class="headerlink" title="foreach语法糖"></a>foreach语法糖</h3><ol>
+<li>数组</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object[] array = <span class="keyword">new</span> Object[]&#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (Object o : array)&#123;</span><br><span class="line">  <span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 编译后的源码</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;array.length(); i++) &#123;</span><br><span class="line">  <span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 所以array为null时会抛出NPE</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>列表</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (String s : list)&#123;</span><br><span class="line">  <span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 编译后的源码</span></span><br><span class="line"><span class="keyword">for</span>(java.util.Iterator i$ = list.iterator(); i$.hasNext(); ) &#123;</span><br><span class="line">  String s = (String) i$.next();</span><br><span class="line">  <span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 所以list为null时会抛出NPE</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>集合<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Object[] array = <span class="keyword">new</span> Object[]&#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (Object o : array)&#123;</span><br><span class="line">  <span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 编译后的源码</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;array.length(); i++) &#123;</span><br><span class="line">  <span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
       
     </div>
 
@@ -821,6 +1068,9 @@
 
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -880,27 +1130,27 @@
     <img class="site-author-image" itemprop="image" alt="Sam"
       src="/avatar/siage.png">
   <p class="site-author-name" itemprop="name">Sam</p>
-  <div class="site-description" itemprop="description">菜鸟一枚，有错误麻烦指出，不胜感激～</div>
+  <div class="site-description" itemprop="description">Never Stop Learning</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -932,7 +1182,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
