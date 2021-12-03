@@ -163,6 +163,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/02/Spring%E5%B0%86Service%E6%B3%A8%E5%85%A5%E5%88%B0Map%E6%88%96List%E4%B8%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="Never Stop Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/02/Spring%E5%B0%86Service%E6%B3%A8%E5%85%A5%E5%88%B0Map%E6%88%96List%E4%B8%AD/" class="post-title-link" itemprop="url">Spring将Service注入到Map或List中</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-02 15:54:24 / 修改时间：18:55:59" itemprop="dateCreated datePublished" datetime="2021-12-02T15:54:24+08:00">2021-12-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/12/02/Spring%E5%B0%86Service%E6%B3%A8%E5%85%A5%E5%88%B0Map%E6%88%96List%E4%B8%AD/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/12/02/Spring将Service注入到Map或List中/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在项目中，见过这样的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AlarmEventMessageListener</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	Map&lt;String, EventService&gt; eventServiceMap)</span></span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.eventServiceMap = eventServiceMap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码功能等同于</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> Map&lt;String, EventService&gt; eventServiceMap;</span><br></pre></td></tr></table></figure>
+
+<p>其中key为bean的名称，value是具体的bean</p>
+<p>[参考阅读]</p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-autowired-annotation-qualifiers">Spring官方文档</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/28/kubectl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -186,10 +280,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-11-28 18:04:00 / 修改时间：20:11:59" itemprop="dateCreated datePublished" datetime="2021-11-28T18:04:00+08:00">2021-11-28</time>
+              <time title="创建时间：2021-11-28 18:04:00" itemprop="dateCreated datePublished" datetime="2021-11-28T18:04:00+08:00">2021-11-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-03 10:42:20" itemprop="dateModified" datetime="2021-12-03T10:42:20+08:00">2021-12-03</time>
+              </span>
 
           
   
@@ -216,15 +316,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><h3 id="创建pod-deployment"><a href="#创建pod-deployment" class="headerlink" title="创建pod/deployment"></a>创建pod/deployment</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create</span><br></pre></td></tr></table></figure>
+          <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><h3 id="创建pod-deployment"><a href="#创建pod-deployment" class="headerlink" title="创建pod/deployment"></a>创建pod/deployment</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create deployment</span><br></pre></td></tr></table></figure>
 
 
 
 <h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="查看pod"><a href="#查看pod" class="headerlink" title="查看pod"></a>查看pod</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods</span><br></pre></td></tr></table></figure>
 
-<h3 id="查看services"><a href="#查看services" class="headerlink" title="查看services"></a>查看services</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get services</span><br></pre></td></tr></table></figure>
+<h3 id="查看services"><a href="#查看services" class="headerlink" title="查看services"></a>查看services</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectl get services</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询所有命名空间的、名称包含redis的service信息</span></span><br><span class="line">kubectl get services --all-namespaces |grep redis</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line"><span class="comment"># ipes-demo              redis-server                            NodePort    10.104.253.29    &lt;none&gt;        6379:32586/TCP            174d</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl logs [pod name]</span><br><span class="line"><span class="comment"># kubectl logs mongo-depl-5fd6b7d4b4-q8lp8</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl logs [pod name]</span><br><span class="line"><span class="comment"># kubectl logs mongo-depl-5fd6b7d4b4-q8lp8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -n [namespace] </span></span><br><span class="line">kubectl logs -f --tail=20 ipes-bim-server-77fb5b6df7-vq6lx -n ipes-demo</span><br></pre></td></tr></table></figure>
+
+<h3 id="查询所有运行的容器"><a href="#查询所有运行的容器" class="headerlink" title="查询所有运行的容器"></a>查询所有运行的容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods --all-namespaces</span><br></pre></td></tr></table></figure>
+
+
+
+
 
 <h3 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -it 代表interactive交互式</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -it [pod name] -- bin/bash</span><br><span class="line"><span class="comment"># kubectl exec -it mongo-depl-5fd6b7d4b4-q8lp8 -- bin/bash</span></span><br></pre></td></tr></table></figure>
 
@@ -270,10 +376,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-11-28 16:46:31 / 修改时间：20:25:48" itemprop="dateCreated datePublished" datetime="2021-11-28T16:46:31+08:00">2021-11-28</time>
+              <time title="创建时间：2021-11-28 16:46:31" itemprop="dateCreated datePublished" datetime="2021-11-28T16:46:31+08:00">2021-11-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-29 08:43:10" itemprop="dateModified" datetime="2021-11-29T08:43:10+08:00">2021-11-29</time>
+              </span>
 
           
   
@@ -917,137 +1029,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/03/MySQL%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8Bupdate%E8%AF%AD%E5%8F%A5%E5%A4%B1%E6%95%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/avatar/siage.png">
-      <meta itemprop="name" content="Sam">
-      <meta itemprop="description" content="Never Stop Learning">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sam的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/03/MySQL%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8Bupdate%E8%AF%AD%E5%8F%A5%E5%A4%B1%E6%95%88/" class="post-title-link" itemprop="url">MySQL并发情况下update语句失效</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-03 10:10:26" itemprop="dateCreated datePublished" datetime="2021-06-03T10:10:26+08:00">2021-06-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-28 20:29:05" itemprop="dateModified" datetime="2021-11-28T20:29:05+08:00">2021-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2021/06/03/MySQL%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8Bupdate%E8%AF%AD%E5%8F%A5%E5%A4%B1%E6%95%88/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/06/03/MySQL并发情况下update语句失效/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>现有表结构如下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`user`</span> (</span><br><span class="line">  <span class="string">`user_id`</span> <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">&#x27;用户id&#x27;</span>,</span><br><span class="line">  <span class="string">`status`</span> <span class="built_in">tinyint</span>(<span class="number">1</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`user_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
-
-<p>表中有2条数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| user_id | status |</span><br><span class="line">|    1    |    0   |</span><br><span class="line">|    2    |    0   |</span><br></pre></td></tr></table></figure>
-
-<p>使用MyBatis进行以下操作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ResultVO&lt;String&gt; <span class="title">update</span><span class="params">(Integer userId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 将userId=#&#123;userId&#125;的数据查出</span></span><br><span class="line">    User user = userMapper.findById(userId);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 将数据的status设为10（此时数据库的status仍是0）</span></span><br><span class="line">    user.setStatus(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 3. 将其它status=0的数据查出（本例子中预期修改的只有user_id=12的数据）</span></span><br><span class="line">    <span class="keyword">final</span> List&lt;User&gt; users = userMapper.findByCondition(User.builder().status(<span class="number">0</span>).build());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4. 将数据的status设为20</span></span><br><span class="line">  	<span class="keyword">for</span> (User u : users) &#123;    </span><br><span class="line">        u.setStatus(<span class="number">20</span>);</span><br><span class="line">        userMapper.update(u);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 程序运行结束后，数据库里的预期：</span></span><br><span class="line">    <span class="comment">// user_id=1的status=10</span></span><br><span class="line">    <span class="comment">// user_id=12的status=20</span></span><br><span class="line">    <span class="keyword">return</span> ResultVO.success(<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>开启2个线程同时运行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">2</span>;</span><br><span class="line">	Thread[] threads = <span class="keyword">new</span> Thread[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i] = <span class="keyword">new</span> Thread(() -&gt; userService.update(<span class="number">1</span>), <span class="string">&quot;test-&quot;</span> + i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i].start();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i].join();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行后，数据库里的数据结果竟然是</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| user_id | status  |</span><br><span class="line">|    1    |    20   |</span><br><span class="line">|    2    |    20   |</span><br></pre></td></tr></table></figure>
-
-<p>根本不符合预期！</p>
-<p>加上日志看看执行过程</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ResultVO&lt;String&gt; <span class="title">update</span><span class="params">(Integer userId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 将userId=#&#123;userId&#125;的数据查出</span></span><br><span class="line">    User user = userMapper.findById(userId);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 将数据的status设为10（此时数据库的status仍是0）</span></span><br><span class="line">    user.setStatus(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">int</span> row = userMapper.update(user);</span><br><span class="line">		log.info(<span class="string">&quot;当前线程：&#123;&#125;, update status=10 执行结果: &#123;&#125;&quot;</span>, Thread.currentThread().getName(), row);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 3. 将其它status=0的数据查出（本例子中预期修改的只有user_id=12的数据）</span></span><br><span class="line">    <span class="keyword">final</span> List&lt;User&gt; users = userMapper.findByCondition(User.builder().status(<span class="number">0</span>).build());</span><br><span class="line">    log.info(<span class="string">&quot;当前线程：&#123;&#125;, 获取到用户数=&#123;&#125;&quot;</span>, Thread.currentThread().getName(), users.size());</span><br><span class="line">		</span><br><span class="line">  	<span class="comment">// 4. 将数据的status设为20</span></span><br><span class="line">    <span class="keyword">for</span> (User u : users) &#123;</span><br><span class="line">        u.setStatus(<span class="number">20</span>);</span><br><span class="line">        userMapper.update(u);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 程序运行结束后，数据库里的预期：</span></span><br><span class="line">    <span class="comment">// user_id=1的status=10</span></span><br><span class="line">    <span class="comment">// user_id=12的status=20</span></span><br><span class="line">    <span class="keyword">return</span> ResultVO.success(<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">10</span>:<span class="number">52.276</span> INFO ] [test-<span class="number">0</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">0</span>, update status=<span class="number">10</span> 执行结果: <span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">10</span>:<span class="number">52.295</span> INFO ] [test-<span class="number">0</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">0</span>, 获取到用户数=<span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">10</span>:<span class="number">55.306</span> INFO ] [test-<span class="number">1</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">1</span>, update status=<span class="number">10</span> 执行结果: <span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">10</span>:<span class="number">55.308</span> INFO ] [test-<span class="number">1</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">1</span>, 获取到用户数=<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>线程<code>test-1</code>执行第一个update语句明明返回成功啊，为什么还能再被查出来呢？难道update语句没有生效？在JDBC连接加上<code>useAffectedRows </code>看看</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jdbc</span>:<span class="string">mysql://$&#123;jdbc.host&#125;/$&#123;jdbc.db&#125;?useAffectedRows=true</span></span><br></pre></td></tr></table></figure>
-
-<p>再执行下看下日志</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">15</span>:<span class="number">24.935</span> INFO ] [test-<span class="number">0</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">0</span>, update status=<span class="number">10</span> 执行结果: <span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">15</span>:<span class="number">24.952</span> INFO ] [test-<span class="number">0</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">0</span>, 获取到用户数=<span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">15</span>:<span class="number">27.974</span> INFO ] [test-<span class="number">1</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">1</span>, update status=<span class="number">10</span> 执行结果: <span class="number">0</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">15</span>:<span class="number">27.977</span> INFO ] [test-<span class="number">1</span>] com.local.service.impl.UserServiceImpl.update - 当前线程：test-<span class="number">1</span>, 获取到用户数=<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>果然，步骤2的update语句根本没有成功，导致步骤3查询出了2条数据，所以无法得到预期的结果。我执行了多次，发现第二个线程总是无法正确得到预期的结果。这到底是为什么呢？</p>
-<p>搜了很多资料，其中有个<a target="_blank" rel="noopener" href="https://segmentfault.com/u/jamesfancy">segmentfault的前辈</a>说了这么一句话，点醒了我</p>
-<blockquote>
-<p>如果更新数是 0 只能说明没更新任何数据，一般来说有两个原因：</p>
-<p>一个是按 WHERE 条件没找到要更新的数据；</p>
-<p>另一个原因是找到了，但是新数据和数据库里存的数据是一样的。</p>
-</blockquote>
-<p>首先排除WHERE条件没找到数据的情况，那么说明第二个线程执行步骤2的时候，库里的userId=1的status已经是10了。</p>
-<p>本例子使用的数据库隔离级别是Repeatable-Read，可重复读，事务一致性视图是在执行第一个快照读语句时创建的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.187</span> DEBUG] [test-<span class="number">1</span>] org.mybatis.spring.SqlSessionUtils.debug - Creating a <span class="keyword">new</span> SqlSession</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.187</span> DEBUG] [test-<span class="number">0</span>] org.mybatis.spring.SqlSessionUtils.debug - Creating a <span class="keyword">new</span> SqlSession</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.208</span> DEBUG] [test-<span class="number">1</span>] org.mybatis.spring.SqlSessionUtils.debug - Registering transaction synchronization <span class="keyword">for</span> SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@<span class="number">711</span>a1035]</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.208</span> DEBUG] [test-<span class="number">0</span>] org.mybatis.spring.SqlSessionUtils.debug - Registering transaction synchronization <span class="keyword">for</span> SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@<span class="number">117d</span>5ca4]</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.253</span> DEBUG] [test-<span class="number">1</span>] org.mybatis.spring.transaction.SpringManagedTransaction.debug - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@<span class="number">31</span>ca104f] will be managed by Spring</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.253</span> DEBUG] [test-<span class="number">0</span>] org.mybatis.spring.transaction.SpringManagedTransaction.debug - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@<span class="number">52f</span>61067] will be managed by Spring</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.258</span> DEBUG] [test-<span class="number">0</span>] com.local.mapper.UserMapper.findById.debug - ==&gt;  Preparing: select `user_id`,`name`,`age`,`status` from user where user_id = ?</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.258</span> DEBUG] [test-<span class="number">1</span>] com.local.mapper.UserMapper.findById.debug - ==&gt;  Preparing: select `user_id`,`name`,`age`,`status` from user where user_id = ?</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.289</span> DEBUG] [test-<span class="number">1</span>] com.local.mapper.UserMapper.findById.debug - ==&gt; Parameters: <span class="number">1</span>(Integer)</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.289</span> DEBUG] [test-<span class="number">0</span>] com.local.mapper.UserMapper.findById.debug - ==&gt; Parameters: <span class="number">1</span>(Integer)</span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.302</span> DEBUG] [test-<span class="number">0</span>] com.local.mapper.UserMapper.findById.debug - &lt;==      Total: <span class="number">1</span></span><br><span class="line">[<span class="number">2021</span>-<span class="number">10</span>-<span class="number">22</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">41.302</span> DEBUG] [test-<span class="number">1</span>] com.local.mapper.UserMapper.findById.debug - &lt;==      Total: <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到，线程0和线程1<code>select</code>语句几乎是同时启动的，可以认为他们的事务视图是一致的，即2个事务视图读到的2条记录都是status=0的数据。</p>
-<p>由于有并发情况存在，执行update语句时，无论是哪个线程率先执行了步骤2的更新语句，另一个线程必须阻塞等待释放锁，即第一个线程commit后，第二个线程才可以继续对同一条数据进行更新操作。</p>
-<p>那么第二个线程的update语句为什么Affected rows是0呢，这是因为<code>update</code>、<code>insert</code>、<code>delete</code>语句是<code>当前读</code>，即每次读取最新的版本，也就是别的事务提交的数据你也可以看到。在本例子中，第二个线程进行步骤2的update操作时，发现当前<code>status</code>已经是10了，所以不会进行更新操作，返回的Affected rows就是0了！</p>
-<p>而<code>select</code>语句使用的是<code>快照读</code>，所以当执行步骤3<code>select</code>语句的时候，读取到status=0的数据，仍然是事务开始创建时的那2条数据。</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>使用<code>select xxx for update;</code> 或 <code>select xxx lock in share mode;</code> 可以强制使用<code>当前读</code></p>
-<h3 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a>参考阅读</h3><p>《MySQL实战45讲》——丁奇</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1119,14 +1100,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
