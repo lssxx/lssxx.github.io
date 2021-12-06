@@ -163,6 +163,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/02/Spring%E5%B0%86Service%E6%B3%A8%E5%85%A5%E5%88%B0Map%E6%88%96List%E4%B8%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="Never Stop Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/02/Spring%E5%B0%86Service%E6%B3%A8%E5%85%A5%E5%88%B0Map%E6%88%96List%E4%B8%AD/" class="post-title-link" itemprop="url">Spring将Service注入到Map或List中</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-02 15:54:24" itemprop="dateCreated datePublished" datetime="2021-12-02T15:54:24+08:00">2021-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-06 15:34:07" itemprop="dateModified" datetime="2021-12-06T15:34:07+08:00">2021-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/12/02/Spring%E5%B0%86Service%E6%B3%A8%E5%85%A5%E5%88%B0Map%E6%88%96List%E4%B8%AD/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/12/02/Spring将Service注入到Map或List中/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在项目中，见过这样的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AlarmEventMessageListener</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	Map&lt;String, EventService&gt; eventServiceMap)</span></span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.eventServiceMap = eventServiceMap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码功能等同于</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> Map&lt;String, EventService&gt; eventServiceMap;</span><br></pre></td></tr></table></figure>
+
+<p>其中key为bean的名称，value是具体的bean</p>
+<p>[参考阅读]</p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-autowired-annotation-qualifiers">Spring官方文档</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/03/MySQL%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8Bupdate%E8%AF%AD%E5%8F%A5%E5%A4%B1%E6%95%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -194,7 +294,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-06 15:30:50" itemprop="dateModified" datetime="2021-12-06T15:30:50+08:00">2021-12-06</time>
+                <time title="修改时间：2021-12-06 15:43:10" itemprop="dateModified" datetime="2021-12-06T15:43:10+08:00">2021-12-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,7 +338,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| user_id | status |</span><br><span class="line">|    1    |    0   |</span><br><span class="line">|    2    |    0   |</span><br></pre></td></tr></table></figure>
 
 <p>使用MyBatis进行以下操作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ResultVO&lt;String&gt; <span class="title">update</span><span class="params">(Integer userId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 将userId=#&#123;userId&#125;的数据查出</span></span><br><span class="line">    User user = userMapper.findById(userId);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 将数据的status设为10（此时数据库的status仍是0）</span></span><br><span class="line">    user.setStatus(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 3. 将其它status=0的数据查出（本例子中预期修改的只有user_id=12的数据）</span></span><br><span class="line">    <span class="keyword">final</span> List&lt;User&gt; users = userMapper.findByCondition(User.builder().status(<span class="number">0</span>).build());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4. 将数据的status设为20</span></span><br><span class="line">  	<span class="keyword">for</span> (User u : users) &#123;    </span><br><span class="line">        u.setStatus(<span class="number">20</span>);</span><br><span class="line">        userMapper.update(u);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 程序运行结束后，数据库里的预期：</span></span><br><span class="line">    <span class="comment">// user_id=1的status=10</span></span><br><span class="line">    <span class="comment">// user_id=12的status=20</span></span><br><span class="line">    <span class="keyword">return</span> ResultVO.success(<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ResultVO&lt;String&gt; <span class="title">update</span><span class="params">(Integer userId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 将userId=#&#123;userId&#125;的数据查出</span></span><br><span class="line">    User user = userMapper.findById(userId);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 将数据的status设为10（此时数据库的status仍是0）</span></span><br><span class="line">    user.setStatus(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 将其它status=0的数据查出（本例子中预期修改的只有user_id=12的数据）</span></span><br><span class="line">    <span class="keyword">final</span> List&lt;User&gt; users = userMapper.findByCondition(User.builder().status(<span class="number">0</span>).build());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4. 将数据的status设为20</span></span><br><span class="line">    <span class="keyword">for</span> (User u : users) &#123;    </span><br><span class="line">        u.setStatus(<span class="number">20</span>);</span><br><span class="line">        userMapper.update(u);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 程序运行结束后，数据库里的预期：</span></span><br><span class="line">    <span class="comment">// user_id=1的status=10</span></span><br><span class="line">    <span class="comment">// user_id=12的status=20</span></span><br><span class="line">    <span class="keyword">return</span> ResultVO.success(<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>开启2个线程同时运行</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">2</span>;</span><br><span class="line">	Thread[] threads = <span class="keyword">new</span> Thread[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i] = <span class="keyword">new</span> Thread(() -&gt; userService.update(<span class="number">1</span>), <span class="string">&quot;test-&quot;</span> + i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i].start();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		threads[i].join();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -631,14 +731,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
