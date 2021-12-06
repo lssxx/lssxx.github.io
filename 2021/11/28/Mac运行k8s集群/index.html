@@ -34,8 +34,9 @@
 <meta property="og:image" content="http://lssxx.top/img/minikube-started.png">
 <meta property="og:image" content="http://lssxx.top/img/minikube-status.png">
 <meta property="og:image" content="http://lssxx.top/img/create-nginx.png">
+<meta property="og:image" content="http://lssxx.top/img/k8s-service-started.png">
 <meta property="article:published_time" content="2021-11-28T08:46:31.000Z">
-<meta property="article:modified_time" content="2021-11-29T00:43:10.221Z">
+<meta property="article:modified_time" content="2021-12-06T07:27:11.997Z">
 <meta property="article:author" content="Sam">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -54,7 +55,7 @@
   };
 </script>
 
-  <title>Mac运行k8s集群 | Sam的博客</title>
+  <title>Mac运行k8s集群 | Sam的博客</title><meta name="robots" content="noindex">
   
 
 
@@ -204,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-29 08:43:10" itemprop="dateModified" datetime="2021-11-29T08:43:10+08:00">2021-11-29</time>
+                <time title="修改时间：2021-12-06 15:27:11" itemprop="dateModified" datetime="2021-12-06T15:27:11+08:00">2021-12-06</time>
               </span>
 
           
@@ -256,7 +257,20 @@
 <h2 id="2-创建"><a href="#2-创建" class="headerlink" title="2. 创建"></a>2. 创建</h2><h3 id="部署一个nginx"><a href="#部署一个nginx" class="headerlink" title="部署一个nginx"></a>部署一个nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create deployment nginx-depl --image=nginx</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://lssxx.top/img/create-nginx.png" alt="img"></p>
+<h2 id="3-通过yaml文件部署"><a href="#3-通过yaml文件部署" class="headerlink" title="3. 通过yaml文件部署"></a>3. 通过yaml文件部署</h2><h3 id="1-创建文件"><a href="#1-创建文件" class="headerlink" title="1. 创建文件"></a>1. 创建文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; touch nginx-deployment.yaml</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># deployment配置</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="comment"># pod配置    </span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx:1.16</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-apply部署文件"><a href="#2-apply部署文件" class="headerlink" title="2. apply部署文件"></a>2. apply部署文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nginx-deployment.yaml</span><br></pre></td></tr></table></figure>
+
+<p>修改部署文件再次运行apply命令后，立即生效</p>
+<h3 id="3-创建service"><a href="#3-创建service" class="headerlink" title="3. 创建service"></a>3. 创建service</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx-service.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span> </span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-service</span></span><br><span class="line"><span class="attr">spec:</span> </span><br><span class="line">  <span class="attr">selector:</span> </span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nginx-service.yaml</span><br></pre></td></tr></table></figure>
+
+<p>查看已启动的service</p>
+<p><img src="http://lssxx.top/img/k8s-service-started.png" alt="k8s-service-started"></p>
+<!-- flag of hidden posts -->
     </div>
 
     
@@ -269,16 +283,6 @@
 
 
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/07/15/Dubbo%E7%BA%BF%E7%A8%8B%E8%BF%87%E5%A4%9A%E5%AF%BC%E8%87%B4OOM/" rel="prev" title="Dubbo线程过多导致OOM">
-      <i class="fa fa-chevron-left"></i> Dubbo线程过多导致OOM
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/11/28/kubectl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="kubectl常用命令">
-      kubectl常用命令 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -343,7 +347,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1. 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85hyperkit"><span class="nav-number">1.1.</span> <span class="nav-text">安装hyperkit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85minikube"><span class="nav-number">1.2.</span> <span class="nav-text">安装minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="nav-number">1.3.</span> <span class="nav-text">验证是否安装成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8minikube"><span class="nav-number">1.4.</span> <span class="nav-text">启动minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bminikube%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5"><span class="nav-number">1.5.</span> <span class="nav-text">查看minikube运行情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">2. 创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AAnginx"><span class="nav-number">2.1.</span> <span class="nav-text">部署一个nginx</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1. 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85hyperkit"><span class="nav-number">1.1.</span> <span class="nav-text">安装hyperkit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85minikube"><span class="nav-number">1.2.</span> <span class="nav-text">安装minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="nav-number">1.3.</span> <span class="nav-text">验证是否安装成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8minikube"><span class="nav-number">1.4.</span> <span class="nav-text">启动minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bminikube%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5"><span class="nav-number">1.5.</span> <span class="nav-text">查看minikube运行情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">2. 创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AAnginx"><span class="nav-number">2.1.</span> <span class="nav-text">部署一个nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%80%9A%E8%BF%87yaml%E6%96%87%E4%BB%B6%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">3. 通过yaml文件部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1. 创建文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-apply%E9%83%A8%E7%BD%B2%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">2. apply部署文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BAservice"><span class="nav-number">3.3.</span> <span class="nav-text">3. 创建service</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -359,20 +363,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
