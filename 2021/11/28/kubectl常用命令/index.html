@@ -28,7 +28,7 @@
 <meta property="og:description" content="deployment相关部署一个镜像123kubectl create deployment [name] --image&#x3D;[image]# 部署一个名称&#x3D;nginx-depl的nginx镜像kubectl create deployment nginx-depl --image&#x3D;nginx  修改部署信息123kubectl edit deployment [deployment-name]ku">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-28T10:04:00.000Z">
-<meta property="article:modified_time" content="2021-12-06T07:27:18.906Z">
+<meta property="article:modified_time" content="2021-12-13T13:09:05.685Z">
 <meta property="article:author" content="Sam">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-06 15:27:18" itemprop="dateModified" datetime="2021-12-06T15:27:18+08:00">2021-12-06</time>
+                <time title="修改时间：2021-12-13 21:09:05" itemprop="dateModified" datetime="2021-12-13T21:09:05+08:00">2021-12-13</time>
               </span>
 
           
@@ -232,7 +232,9 @@
 
 
 
-<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="查看所有pod"><a href="#查看所有pod" class="headerlink" title="查看所有pod"></a>查看所有pod</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods</span><br></pre></td></tr></table></figure>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="查看所有pod"><a href="#查看所有pod" class="headerlink" title="查看所有pod"></a>查看所有pod</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods</span><br><span class="line"></span><br><span class="line">kubectl get pods --all-namespaces</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看详细信息</span></span><br><span class="line">kubectl get pods --all-namespaces -o wide</span><br></pre></td></tr></table></figure>
+
+
 
 <h3 id="查看pod详细信息"><a href="#查看pod详细信息" class="headerlink" title="查看pod详细信息"></a>查看pod详细信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pods [pod-name]</span><br><span class="line">kubectl get pod  -o wide</span><br></pre></td></tr></table></figure>
 
@@ -242,7 +244,7 @@
 
 <h3 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl logs [pod name]</span><br><span class="line"><span class="comment"># kubectl logs mongo-depl-5fd6b7d4b4-q8lp8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -n [namespace] </span></span><br><span class="line">kubectl logs -f --tail=20 ipes-bim-server-77fb5b6df7-vq6lx -n ipes-demo</span><br></pre></td></tr></table></figure>
 
-<h3 id="查询所有运行的容器"><a href="#查询所有运行的容器" class="headerlink" title="查询所有运行的容器"></a>查询所有运行的容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods --all-namespaces</span><br></pre></td></tr></table></figure>
+
 
 
 
@@ -325,7 +327,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#deployment%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">deployment相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E9%95%9C%E5%83%8F"><span class="nav-number">1.1.</span> <span class="nav-text">部署一个镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%83%A8%E7%BD%B2%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">修改部署信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89pod"><span class="nav-number">2.1.</span> <span class="nav-text">查看所有pod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bpod%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="nav-number">2.2.</span> <span class="nav-text">查看pod详细信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Byaml%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">查看yaml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bservices"><span class="nav-number">2.4.</span> <span class="nav-text">查看services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-number">2.5.</span> <span class="nav-text">查看日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="nav-number">2.6.</span> <span class="nav-text">查询所有运行的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8"><span class="nav-number">2.7.</span> <span class="nav-text">进入容器</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#deployment%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">deployment相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E9%95%9C%E5%83%8F"><span class="nav-number">1.1.</span> <span class="nav-text">部署一个镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%83%A8%E7%BD%B2%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">修改部署信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89pod"><span class="nav-number">2.1.</span> <span class="nav-text">查看所有pod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bpod%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="nav-number">2.2.</span> <span class="nav-text">查看pod详细信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Byaml%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">查看yaml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bservices"><span class="nav-number">2.4.</span> <span class="nav-text">查看services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-number">2.5.</span> <span class="nav-text">查看日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8"><span class="nav-number">2.6.</span> <span class="nav-text">进入容器</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
