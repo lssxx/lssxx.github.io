@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用基于园区SpringBoot模版工程制作的脚手架快速生成Maven工程。 脚手架工程已发布到公司Maven仓库 一、使用方法 使用123456789mvn -U archetype:generate  \  -DarchetypeGroupId&#x3D;com.fpi.ipes  \  -DarchetypeArtifactId&#x3D;ipes-archetype  \  -DarchetypeVersio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发一个Maven脚手架工程">
+<meta property="og:url" content="http://example.com/2022/02/15/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAMaven%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Sam的博客">
+<meta property="og:description" content="使用基于园区SpringBoot模版工程制作的脚手架快速生成Maven工程。 脚手架工程已发布到公司Maven仓库 一、使用方法 使用123456789mvn -U archetype:generate  \  -DarchetypeGroupId&#x3D;com.fpi.ipes  \  -DarchetypeArtifactId&#x3D;ipes-archetype  \  -DarchetypeVersio">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://confluence.fpi-inc.site/download/attachments/25854102/archetype-overview.png?version=1&modificationDate=1644455932330&api=v2">
+<meta property="article:published_time" content="2022-02-15T05:00:59.000Z">
+<meta property="article:modified_time" content="2022-02-15T05:03:42.612Z">
+<meta property="article:author" content="Sam">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://confluence.fpi-inc.site/download/attachments/25854102/archetype-overview.png?version=1&modificationDate=1644455932330&api=v2">
+
+<link rel="canonical" href="http://example.com/2022/02/15/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAMaven%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>开发一个Maven脚手架工程 | Sam的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sam的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/15/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAMaven%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="Never Stop Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          开发一个Maven脚手架工程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-15 13:00:59 / 修改时间：13:03:42" itemprop="dateCreated datePublished" datetime="2022-02-15T13:00:59+08:00">2022-02-15</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/02/15/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAMaven%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E7%A8%8B/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/02/15/开发一个Maven脚手架工程/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用基于<a target="_blank" rel="noopener" href="https://git.fpi-inc.site/product/park-products/demo/ipes-demo-server">园区SpringBoot模版工程</a>制作的脚手架快速生成Maven工程。</p>
+<p>脚手架工程已发布到公司<a target="_blank" rel="noopener" href="http://nexus.fpi-inc.site/#browse/browse:releases:com%2Ffpi%2Fipes%2Fipes-archetype%2F0.0.1">Maven仓库</a></p>
+<h2 id="一、使用方法"><a href="#一、使用方法" class="headerlink" title="一、使用方法"></a>一、使用方法</h2><ol>
+<li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mvn -U archetype:generate  \</span><br><span class="line">  -DarchetypeGroupId=com.fpi.ipes  \</span><br><span class="line">  -DarchetypeArtifactId=ipes-archetype  \</span><br><span class="line">  -DarchetypeVersion=0.0.1  \</span><br><span class="line">  -DgroupId=com.fpi.ipes  \</span><br><span class="line">  -DartifactId=ipes-app-manager-server \</span><br><span class="line">  -Dversion=0.0.1-SNAPSHOT  \</span><br><span class="line">  -Dpackage=com.fpi.ipes.app.manager  \</span><br><span class="line">  -Ddescription=园区APP后台管理服务</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><code>groupId</code> <code>artifactId</code> <code>version</code> <code>package</code> <code>description</code> 根据工程自定义</p>
+<ol start="2">
+<li>生成后目录如下<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── .gitlab-ci.yml</span><br><span class="line">├── Dockerfile</span><br><span class="line">├── mvnw</span><br><span class="line">├── mvnw.cmd</span><br><span class="line">├── pom.xml</span><br><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   │   └── com</span><br><span class="line">    │   │       └── fpi</span><br><span class="line">    │   │           └── ipes</span><br><span class="line">    │   │               └── app</span><br><span class="line">    │   │                   └── manager</span><br><span class="line">    │   │                       ├── IpesServerApplication.java</span><br><span class="line">    │   │                       ├── api</span><br><span class="line">    │   │                       ├── beans</span><br><span class="line">    │   │                       ├── client</span><br><span class="line">    │   │                       ├── config</span><br><span class="line">    │   │                       ├── enums</span><br><span class="line">    │   │                       ├── handler</span><br><span class="line">    │   │                       ├── mapper</span><br><span class="line">    │   │                       ├── service</span><br><span class="line">    │   │                       └── util</span><br><span class="line">    │   └── resources</span><br><span class="line">    │       ├── application-dev-common.yml</span><br><span class="line">    │       ├── application-dev-dm.yml</span><br><span class="line">    │       ├── application-dev-mysql.yml</span><br><span class="line">    │       ├── application-prod-dm.yml</span><br><span class="line">    │       ├── application-prod-mysql.yml</span><br><span class="line">    │       ├── application.yml</span><br><span class="line">    │       ├── db</span><br><span class="line">    │       │   ├── dm</span><br><span class="line">    │       │   │   └── README</span><br><span class="line">    │       │   └── migration</span><br><span class="line">    │       │       └── V1.0.0__init.sql</span><br><span class="line">    │       ├── logback-spring.xml</span><br><span class="line">    │       └── mapping</span><br><span class="line">    │           └── UserInfoMapper.xml</span><br><span class="line">    └── <span class="built_in">test</span></span><br><span class="line">        ├── java</span><br><span class="line">        │   └── com</span><br><span class="line">        │       └── fpi</span><br><span class="line">        │           └── ipes</span><br><span class="line">        │               └── app</span><br><span class="line">        │                   └── manager</span><br><span class="line">        │                       ├── IpesServerApplicationTest.java</span><br><span class="line">        │                       └── api</span><br><span class="line">        └── resources</span><br><span class="line">            └── application.yml</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="二、脚手架生成"><a href="#二、脚手架生成" class="headerlink" title="二、脚手架生成"></a>二、脚手架生成</h2><h3 id="1-基本原理"><a href="#1-基本原理" class="headerlink" title="1. 基本原理"></a>1. 基本原理</h3><p>基于<a target="_blank" rel="noopener" href="https://maven.apache.org/archetype/maven-archetype-plugin/">maven-archetype-plugin</a>插件，先从模版工程生成脚手架工程，开发人员再基于脚手架工程生成具体的maven工程</p>
+<p><img src="http://confluence.fpi-inc.site/download/attachments/25854102/archetype-overview.png?version=1&modificationDate=1644455932330&api=v2" alt="img"></p>
+<h3 id="2-脚手架发布"><a href="#2-脚手架发布" class="headerlink" title="2. 脚手架发布"></a>2. 脚手架发布</h3><p>利用GitLab CI，当<a target="_blank" rel="noopener" href="https://git.fpi-inc.site/product/park-products/demo/ipes-demo-server">ipes-demo-server</a>的代码合并，生成最新的maven脚手架工程并发布到公司Maven私服</p>
+<h2 id="三、archetype-create-from-project"><a href="#三、archetype-create-from-project" class="headerlink" title="三、archetype:create-from-project"></a>三、archetype:create-from-project</h2><p>在ipes-demo-server工程执行<code>archetype:create-from-project</code>后，会在<code>target/generated-sources/archetype</code>目录下生成脚手架工程。</p>
+<p>生成目录也可在archetype.properties文件中通过<code>outputDirectory</code>指定。</p>
+<p>生成后的脚手架工程具有以下特点</p>
+<ol>
+<li>src/main/java下的代码，包路径被删除</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">src</span></span><br><span class="line"><span class="string">├──</span> <span class="string">main</span></span><br><span class="line"><span class="string">│</span>   <span class="string">├──</span> <span class="string">java</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">IpesDemoServerApplication.java</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">api</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">beans</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">client</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">config</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">enums</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">handler</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">mapper</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">├──</span> <span class="string">service</span></span><br><span class="line"><span class="string">│</span>   <span class="string">│</span>   <span class="string">└──</span> <span class="string">util</span></span><br><span class="line"><span class="string">│</span>   <span class="string">└──</span> <span class="string">resources</span></span><br><span class="line"><span class="string">│</span>       <span class="string">├──</span> <span class="string">application-dev-common.yml</span></span><br><span class="line"><span class="string">│</span>       <span class="string">├──</span> <span class="string">application-dev-dm.yml</span></span><br><span class="line"><span class="string">│</span>       <span class="string">├──</span> <span class="string">application-dev-mysql.yml</span></span><br><span class="line"><span class="string">│</span>       <span class="string">├──</span> <span class="string">application-prod-dm.yml</span></span><br><span class="line"><span class="string">│</span>       <span class="string">├──</span> <span class="string">application-prod-mysql.yml</span></span><br><span class="line"><span class="string">│</span>       <span class="string">├──</span> <span class="string">application.yml</span></span><br><span class="line"><span class="string">│</span>       <span class="string">├──</span> <span class="string">db</span></span><br><span class="line"><span class="string">│</span>       <span class="string">├──</span> <span class="string">logback-spring.xml</span></span><br><span class="line"><span class="string">│</span>       <span class="string">└──</span> <span class="string">mapping</span></span><br><span class="line"><span class="string">└──</span> <span class="string">test</span></span><br><span class="line">    <span class="string">├──</span> <span class="string">java</span></span><br><span class="line">    <span class="string">│</span>   <span class="string">├──</span> <span class="string">IpesDemoServerApplicationTest.java</span></span><br><span class="line">    <span class="string">│</span>   <span class="string">└──</span> <span class="string">api</span></span><br><span class="line">    <span class="string">└──</span> <span class="string">resources</span></span><br><span class="line">        <span class="string">└──</span> <span class="string">application.yml</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>生成的代码中，包名统一被替换成<code>$&#123;packageName&#125;</code></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#set( $symbol_pound = &#x27;#&#x27; )</span><br><span class="line">#set( $symbol_dollar = &#x27;$&#x27; )</span><br><span class="line">#set( $symbol_escape = &#x27;\&#x27; )</span><br><span class="line"><span class="keyword">package</span> $&#123;packageName&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.mybatis.spring.annotation.MapperScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.support.SpringBootServletInitializer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;$&#123;packageName&#125;.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IpesDemoServerApplication</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(IpesDemoServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-archetype-properties"><a href="#1-archetype-properties" class="headerlink" title="1.archetype.properties"></a>1.archetype.properties</h3><p>properties中可对参数进行定义</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成的脚手架artifactId</span></span><br><span class="line"><span class="meta">archetype.artifactId</span>=<span class="string">ipes-archetype</span></span><br><span class="line"><span class="attr">packageName</span>=<span class="string">com.fpi.ipes.demo</span></span><br><span class="line"><span class="meta">archetype.encoding</span>=<span class="string">UTF-8</span></span><br><span class="line"><span class="meta">archetype.test.skip</span>=<span class="string">true</span></span><br><span class="line"><span class="comment"># 生成新工程时忽略的文件路径，多个用逗号,分割</span></span><br><span class="line"><span class="attr">excludePatterns</span>=<span class="string">src/main/resources/META-INF/**</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义参数</span></span><br><span class="line"><span class="attr">gitignore</span>=<span class="string">.gitignore</span></span><br><span class="line"><span class="attr">description</span>=<span class="string">园区SpringBoot规范工程</span></span><br></pre></td></tr></table></figure>
+
+<p>更多用法请看<a target="_blank" rel="noopener" href="https://maven.apache.org/archetype/maven-archetype-plugin/create-from-project-mojo.html#propertyFile">官方文档</a></p>
+<h3 id="2-archetype-metadata-xml"><a href="#2-archetype-metadata-xml" class="headerlink" title="2.archetype-metadata.xml"></a>2.archetype-metadata.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">archetype-descriptor</span> <span class="attr">name</span>=<span class="string">&quot;spring-mvc-quickstart&quot;</span></span></span><br><span class="line"><span class="tag">                      <span class="attr">xmlns</span>=<span class="string">&quot;https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0&quot;</span></span></span><br><span class="line"><span class="tag">                      <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">                      <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">requiredProperties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">requiredProperty</span> <span class="attr">key</span>=<span class="string">&quot;description&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">defaultValue</span>&gt;</span>园区SpringBoot规范工程<span class="tag">&lt;/<span class="name">defaultValue</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">requiredProperty</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">requiredProperty</span> <span class="attr">key</span>=<span class="string">&quot;gitignore&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">defaultValue</span>&gt;</span>.gitignore<span class="tag">&lt;/<span class="name">defaultValue</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">requiredProperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">requiredProperties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fileSets</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fileSet</span> <span class="attr">filtered</span>=<span class="string">&quot;false&quot;</span> <span class="attr">encoding</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span><span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>__gitignore__<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>.gitlab-ci-gen.yml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">fileSet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fileSet</span> <span class="attr">filtered</span>=<span class="string">&quot;true&quot;</span> <span class="attr">encoding</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span><span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>Dockerfile<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>README.md<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">fileSet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fileSet</span> <span class="attr">filtered</span>=<span class="string">&quot;true&quot;</span> <span class="attr">packaged</span>=<span class="string">&quot;true&quot;</span> <span class="attr">encoding</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.java<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">fileSet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fileSets</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">archetype-descriptor</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>requiredProperties是对自定义参数的描述</p>
+</li>
+<li><p>fileSet是对工程文件的描述</p>
+<ul>
+<li><code>filtered=true</code>说明需要被velocity模版渲染</li>
+<li><code>packaged=true</code>说明该文件需要在包路径下，否则<code>archetype:generate</code>生成的目录结构是这样的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">  src</span><br><span class="line">  ├── main</span><br><span class="line">  │   ├── java</span><br><span class="line">  │   │   └── IpesDemoServerApplication.java</span><br><span class="line">  │   └── resources</span><br><span class="line">  │       ├── application-dev-common.yml</span><br><span class="line">  │       ├── application-dev-dm.yml</span><br><span class="line">  │       ├── application-dev-mysql.yml</span><br><span class="line">  │       ├── application-prod-dm.yml</span><br><span class="line">  │       ├── application-prod-mysql.yml</span><br><span class="line">  │       ├── application.yml</span><br><span class="line">  │       ├── db</span><br><span class="line">  │       ├── logback-spring.xml</span><br><span class="line">  │       └── mapping</span><br><span class="line">  └── test</span><br><span class="line">      ├── java</span><br><span class="line">      │   ├── IpesDemoServerApplicationTest.java</span><br><span class="line">      │   └── api</span><br><span class="line">      └── resources</span><br><span class="line">          └── application.yml</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">更多用法请看[官方文档](https:&#x2F;&#x2F;maven.apache.org&#x2F;archetype&#x2F;archetype-models&#x2F;archetype-descriptor&#x2F;archetype-descriptor.html)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 3.archetype-post-generate.groovy</span><br><span class="line"></span><br><span class="line">若在&#96;src&#x2F;main&#x2F;resources&#x2F;META-INF&#x2F;&#96;目录下存在该文件，&#96;archetype:generate&#96;会在生成工程后执行该脚本，可以利用脚本对生成后的工程作修改。</span><br><span class="line"></span><br><span class="line">在ipes-demo-server中也存在[archetype-post-generate.groovy](https:&#x2F;&#x2F;git.fpi-inc.site&#x2F;product&#x2F;park-products&#x2F;demo&#x2F;ipes-demo-server&#x2F;merge_requests&#x2F;6&#x2F;diffs#36c1a4edc3b96863c30b5618680e5c778066243d)，主要对生成后的工程中的&#96;.gitlab-ci-gen.yml&#96;重命名、替换启动类名。</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;groovy</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 1.重命名启动类文件名</span><br><span class="line"> * 2.替换文件内容</span><br><span class="line"> *&#x2F;</span><br><span class="line">def outputFile &#x3D; renameFile(projectPath, srcAbsPath, &quot;IpesDemoServerApplication.java&quot;, className.concat(suffix))</span><br><span class="line">replaceFileContent(outputFile, &quot;IpesDemoServerApplication&quot;, className)</span><br><span class="line">logger.info(&quot;Generated Main-Class-File: &#123;&#125;&quot;, outputFile.toString())</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="4-其他"><a href="#4-其他" class="headerlink" title="4.其他"></a>4.其他</h3><p>文件或文件夹以<code>__fileName__</code>这种格式命名的，fileName会被插件当作是一个变量，在<code>archetype:generate</code>时，将fileName替换成具体的值。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/17/SpringBoot2%E5%90%AF%E5%8A%A8%E6%B2%A1%E6%9C%89%E6%97%A5%E5%BF%97/" rel="prev" title="SpringBoot2启动没有日志">
+      <i class="fa fa-chevron-left"></i> SpringBoot2启动没有日志
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/21/Java%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/" rel="next" title="Java异步编程实践">
+      Java异步编程实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">一、使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%84%9A%E6%89%8B%E6%9E%B6%E7%94%9F%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">二、脚手架生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">1. 基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%84%9A%E6%89%8B%E6%9E%B6%E5%8F%91%E5%B8%83"><span class="nav-number">2.2.</span> <span class="nav-text">2. 脚手架发布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81archetype-create-from-project"><span class="nav-number">3.</span> <span class="nav-text">三、archetype:create-from-project</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-archetype-properties"><span class="nav-number">3.1.</span> <span class="nav-text">1.archetype.properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-archetype-metadata-xml"><span class="nav-number">3.2.</span> <span class="nav-text">2.archetype-metadata.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%85%B6%E4%BB%96"><span class="nav-number">3.3.</span> <span class="nav-text">4.其他</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sam"
+      src="/avatar/siage.png">
+  <p class="site-author-name" itemprop="name">Sam</p>
+  <div class="site-description" itemprop="description">Never Stop Learning</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:linsensena@gmail.com" title="E-Mail → mailto:linsensena@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://samifie.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2022/02/15/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAMaven%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E7%A8%8B/";
+    this.page.identifier = "2022/02/15/开发一个Maven脚手架工程/";
+    this.page.title = "开发一个Maven脚手架工程";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samifie.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

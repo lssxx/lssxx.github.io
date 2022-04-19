@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="主线程进行数据库修改操作 另起线程执行逻辑，未取到更新值  1234567@Transactionalpublic void deal() &amp;#123;  &#x2F;&#x2F; 数据库操作  updateBD();  &#x2F;&#x2F; something()中查询updateBD()的结果  executor.execute(() -&gt; something())&amp;#125;">
+  <meta name="description" content="线程线程池FutureCompletableFutureSpring中的@Async用法12345678910@Async(Constants.EXTERNAL_SERVICE_TASK_EXECUTOR_BEAN_NAME)public CompletableFuture&lt;List&lt;ResourceDTO&gt;&gt; getUserResource(String systemCo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="主线程事务">
-<meta property="og:url" content="http://example.com/2021/06/28/%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/index.html">
+<meta property="og:title" content="Java异步编程实践">
+<meta property="og:url" content="http://example.com/2022/02/21/Java%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/index.html">
 <meta property="og:site_name" content="Sam的博客">
-<meta property="og:description" content="主线程进行数据库修改操作 另起线程执行逻辑，未取到更新值  1234567@Transactionalpublic void deal() &amp;#123;  &#x2F;&#x2F; 数据库操作  updateBD();  &#x2F;&#x2F; something()中查询updateBD()的结果  executor.execute(() -&gt; something())&amp;#125;">
+<meta property="og:description" content="线程线程池FutureCompletableFutureSpring中的@Async用法12345678910@Async(Constants.EXTERNAL_SERVICE_TASK_EXECUTOR_BEAN_NAME)public CompletableFuture&lt;List&lt;ResourceDTO&gt;&gt; getUserResource(String systemCo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-06-28T02:32:42.000Z">
-<meta property="article:modified_time" content="2021-12-06T07:24:10.662Z">
+<meta property="og:image" content="http://lssxx.top/img/jmeter-error.jpg">
+<meta property="article:published_time" content="2022-02-21T05:42:00.000Z">
+<meta property="article:modified_time" content="2022-02-23T00:42:03.354Z">
 <meta property="article:author" content="Sam">
-<meta property="article:tag" content="事务">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lssxx.top/img/jmeter-error.jpg">
 
-<link rel="canonical" href="http://example.com/2021/06/28/%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/">
+<link rel="canonical" href="http://example.com/2022/02/21/Java%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>主线程事务 | Sam的博客</title><meta name="robots" content="noindex">
+  <title>Java异步编程实践 | Sam的博客</title>
   
 
 
@@ -166,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/28/%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/21/Java%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar/siage.png">
@@ -179,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          主线程事务
+          Java异步编程实践
         </h1>
 
         <div class="post-meta">
@@ -189,24 +191,15 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-06-28 10:32:42" itemprop="dateCreated datePublished" datetime="2021-06-28T10:32:42+08:00">2021-06-28</time>
+              <time title="创建时间：2022-02-21 13:42:00" itemprop="dateCreated datePublished" datetime="2022-02-21T13:42:00+08:00">2022-02-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-06 15:24:10" itemprop="dateModified" datetime="2021-12-06T15:24:10+08:00">2021-12-06</time>
+                <time title="修改时间：2022-02-23 08:42:03" itemprop="dateModified" datetime="2022-02-23T08:42:03+08:00">2022-02-23</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
 
           
   
@@ -217,8 +210,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2021/06/28/%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/06/28/主线程事务/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2022/02/21/Java%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/02/21/Java异步编程实践/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -233,13 +226,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>主线程进行数据库修改操作</p>
-<p>另起线程执行逻辑，未取到更新值</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 数据库操作</span></span><br><span class="line">  updateBD();</span><br><span class="line">  <span class="comment">// something()中查询updateBD()的结果</span></span><br><span class="line">  executor.execute(() -&gt; something())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><h2 id="Future"><a href="#Future" class="headerlink" title="Future"></a>Future</h2><h2 id="CompletableFuture"><a href="#CompletableFuture" class="headerlink" title="CompletableFuture"></a>CompletableFuture</h2><h2 id="Spring中的-Async"><a href="#Spring中的-Async" class="headerlink" title="Spring中的@Async"></a>Spring中的@Async</h2><h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Async(Constants.EXTERNAL_SERVICE_TASK_EXECUTOR_BEAN_NAME)</span></span><br><span class="line"><span class="keyword">public</span> CompletableFuture&lt;List&lt;ResourceDTO&gt;&gt; getUserResource(String systemCode, Integer type, String userId)&#123;</span><br><span class="line">    List&lt;ResourceDTO&gt; resources = RestTemplateUtil.getProcess(userResources, restTemplate,</span><br><span class="line">                <span class="keyword">new</span> ParameterizedTypeReference&lt;List&lt;ResourceDTO&gt;&gt;() &#123;</span><br><span class="line">                &#125;, userId, systemCode, type);</span><br><span class="line">    resources = Optional.ofNullable(resources).orElse(Collections.emptyList())</span><br><span class="line">                .stream()</span><br><span class="line">                .filter(p -&gt; p.getReadableSign().equals(<span class="number">1</span>) || p.getOperableSign().equals(<span class="number">1</span>)).collect(Collectors.toList());</span><br><span class="line">    <span class="keyword">return</span> CompletableFuture.completedFuture(resources);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<!-- flag of hidden posts -->
+<p><code>@Async</code>要配合<code>@EnableAsync</code>使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableAsync(proxyTargetClass = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IpesServerApplication</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(IpesServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="高并发情况下报错"><a href="#高并发情况下报错" class="headerlink" title="高并发情况下报错"></a>高并发情况下报错</h3><p>使用100个线程，持续跑10次，出现大面积报错</p>
+<p><img src="http://lssxx.top/img/jmeter-error.jpg" alt="img"></p>
+<p>后台抛出异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: No thread-bound request found: Are you referring to request attributes outside of an actual web request, or processing a request outside of the originally receiving thread? If you are actually operating within a web request and still receive <span class="keyword">this</span> message, your code is probably running outside of DispatcherServlet: In <span class="keyword">this</span> <span class="keyword">case</span>, use RequestContextListener or RequestContextFilter to expose the current request.</span><br></pre></td></tr></table></figure>
+
+
+
+<p>把线程数设置成10，接口却能调用正常。初步怀疑是因为队列中的任务</p>
+
     </div>
 
     
@@ -247,14 +249,18 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag"># 事务</a>
-          </div>
 
         
 
 
         
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/15/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAMaven%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E7%A8%8B/" rel="prev" title="开发一个Maven脚手架工程">
+      <i class="fa fa-chevron-left"></i> 开发一个Maven脚手架工程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
     
   </article>
@@ -319,6 +325,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">2.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Future"><span class="nav-number">3.</span> <span class="nav-text">Future</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CompletableFuture"><span class="nav-number">4.</span> <span class="nav-text">CompletableFuture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E4%B8%AD%E7%9A%84-Async"><span class="nav-number">5.</span> <span class="nav-text">Spring中的@Async</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8B%E6%8A%A5%E9%94%99"><span class="nav-number">5.2.</span> <span class="nav-text">高并发情况下报错</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -451,9 +458,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "http://example.com/2021/06/28/%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/";
-    this.page.identifier = "2021/06/28/主线程事务/";
-    this.page.title = "主线程事务";
+    this.page.url = "http://example.com/2022/02/21/Java%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/";
+    this.page.identifier = "2022/02/21/Java异步编程实践/";
+    this.page.title = "Java异步编程实践";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

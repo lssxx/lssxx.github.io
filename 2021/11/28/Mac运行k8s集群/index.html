@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://lssxx.top/img/create-nginx.png">
 <meta property="og:image" content="http://lssxx.top/img/k8s-service-started.png">
 <meta property="article:published_time" content="2021-11-28T08:46:31.000Z">
-<meta property="article:modified_time" content="2021-12-13T02:00:57.893Z">
+<meta property="article:modified_time" content="2021-12-25T12:44:17.482Z">
 <meta property="article:author" content="Sam">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-13 10:00:57" itemprop="dateModified" datetime="2021-12-13T10:00:57+08:00">2021-12-13</time>
+                <time title="修改时间：2021-12-25 20:44:17" itemprop="dateModified" datetime="2021-12-25T20:44:17+08:00">2021-12-25</time>
               </span>
 
           
@@ -249,7 +249,9 @@
 <p>手动下载docker-machine-driver-hyperkit并安装</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit &amp;&amp; sudo install -o root -g wheel -m 4755 docker-machine-driver-hyperkit /usr/<span class="built_in">local</span>/bin/</span><br></pre></td></tr></table></figure>
 
-<p>再次运行<code>minikube start --driver=hyperkit</code></p>
+<p>再次运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube start --driver=hyperkit </span><br></pre></td></tr></table></figure>
+
 <p><img src="http://lssxx.top/img/minikube-started.png" alt="img"></p>
 <h3 id="查看minikube运行情况"><a href="#查看minikube运行情况" class="headerlink" title="查看minikube运行情况"></a>查看minikube运行情况</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube status</span><br></pre></td></tr></table></figure>
 
@@ -261,7 +263,7 @@
 
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># deployment配置</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="comment"># pod配置    </span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx:1.16</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="2-apply命令"><a href="#2-apply命令" class="headerlink" title="2. apply命令"></a>2. apply命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nginx-deployment.yaml</span><br></pre></td></tr></table></figure>
+<h3 id="2-apply命令"><a href="#2-apply命令" class="headerlink" title="2. apply命令"></a>2. apply命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nginx-deployment.yaml</span><br><span class="line">kubectl apply -f nginx-deployment.yaml --namespace=my-namespace</span><br></pre></td></tr></table></figure>
 
 <p>修改部署文件再次运行apply命令后，立即生效</p>
 <h3 id="3-创建service"><a href="#3-创建service" class="headerlink" title="3. 创建service"></a>3. 创建service</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx-service.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span> </span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-service</span></span><br><span class="line"><span class="attr">spec:</span> </span><br><span class="line">  <span class="attr">selector:</span> </span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
@@ -270,6 +272,25 @@
 
 <p>查看已启动的service</p>
 <p><img src="http://lssxx.top/img/k8s-service-started.png" alt="k8s-service-started"></p>
+<h2 id="4-创建secret"><a href="#4-创建secret" class="headerlink" title="4. 创建secret"></a>4. 创建secret</h2><p><code>必须在Deployment之前创建</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mongodb-secret</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">Opaque</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">mongo-root-username:</span> <span class="string">cm9vdA==</span></span><br><span class="line">  <span class="attr">mongo-root-password:</span> <span class="string">cm9vdA==</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>来自<a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/">官方文档</a></p>
+<p><strong>说明：</strong></p>
+<p>Secret 数据的 JSON 和 YAML 序列化结果是以 base64 编码的。 换行符在这些字符串中无效，必须省略。 在 Darwin/macOS 上使用 <code>base64</code> 工具时，用户不应该使用 <code>-b</code> 选项分割长行。 相反地，Linux 用户 <em>应该</em> 在 <code>base64</code> 地命令中添加 <code>-w 0</code> 选项， 或者在 <code>-w</code> 选项不可用的情况下，输入 <code>base64 | tr -d &#39;\n&#39;</code>。</p>
+</blockquote>
+<p>在mac上进行base64编码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -n <span class="string">&#x27;123456&#x27;</span> | base64</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开外部端口</span></span><br><span class="line">minikube service mongodb-express-service</span><br><span class="line"></span><br><span class="line">kubectl describe po -A &gt; test.yaml</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="常见问题解决"><a href="#常见问题解决" class="headerlink" title="常见问题解决"></a>常见问题解决</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ minikube addons <span class="built_in">enable</span> ingress</span><br><span class="line"></span><br><span class="line">$ ❌  Exiting due to MK_ADDON_ENABLE: run callbacks: running callbacks: [waiting <span class="keyword">for</span> app.kubernetes.io/name=ingress-nginx pods: timed out waiting <span class="keyword">for</span> the condition]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 官方建议</span></span><br><span class="line">$ minikube delete --all --purge</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启minikube</span></span><br><span class="line">$ minikube start</span><br></pre></td></tr></table></figure>
+
 <!-- flag of hidden posts -->
     </div>
 
@@ -347,7 +368,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1. 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85hyperkit"><span class="nav-number">1.1.</span> <span class="nav-text">安装hyperkit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85minikube"><span class="nav-number">1.2.</span> <span class="nav-text">安装minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="nav-number">1.3.</span> <span class="nav-text">验证是否安装成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8minikube"><span class="nav-number">1.4.</span> <span class="nav-text">启动minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bminikube%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5"><span class="nav-number">1.5.</span> <span class="nav-text">查看minikube运行情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">2. 创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AAnginx"><span class="nav-number">2.1.</span> <span class="nav-text">部署一个nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%80%9A%E8%BF%87yaml%E6%96%87%E4%BB%B6%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">3. 通过yaml文件部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1. 创建文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-apply%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">2. apply命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BAservice"><span class="nav-number">3.3.</span> <span class="nav-text">3. 创建service</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1. 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85hyperkit"><span class="nav-number">1.1.</span> <span class="nav-text">安装hyperkit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85minikube"><span class="nav-number">1.2.</span> <span class="nav-text">安装minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="nav-number">1.3.</span> <span class="nav-text">验证是否安装成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8minikube"><span class="nav-number">1.4.</span> <span class="nav-text">启动minikube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bminikube%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5"><span class="nav-number">1.5.</span> <span class="nav-text">查看minikube运行情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">2. 创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AAnginx"><span class="nav-number">2.1.</span> <span class="nav-text">部署一个nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%80%9A%E8%BF%87yaml%E6%96%87%E4%BB%B6%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">3. 通过yaml文件部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1. 创建文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-apply%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">2. apply命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BAservice"><span class="nav-number">3.3.</span> <span class="nav-text">3. 创建service</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%88%9B%E5%BB%BAsecret"><span class="nav-number">4.</span> <span class="nav-text">4. 创建secret</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%88%98"><span class="nav-number">5.</span> <span class="nav-text">实战</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-number">6.</span> <span class="nav-text">常见问题解决</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -363,7 +384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -408,7 +429,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
