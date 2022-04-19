@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="背景有以下场景： 接口1依赖了服务A、B、C、D的不同接口，并且每个接口业务逻辑的都是互相独立的，所以该接口至少需要发起4次远程调用。 在微服务架构下，这种场景非常常见，想要提高接口的RT，很容易想到使用多线程方式调用不同的外部接口，最后组装数据，将结果返回给客户端。 img 项目中使用了RequestContextHolder获取web线程的上下文信息，如请求头、cookie等。  注：Requ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用@Async能提高接口响应速度吗">
+<meta property="og:url" content="http://example.com/2022/04/16/%E4%BD%BF%E7%94%A8@Async%E8%83%BD%E6%8F%90%E9%AB%98%E6%8E%A5%E5%8F%A3%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%E5%90%97/index.html">
+<meta property="og:site_name" content="Sam的博客">
+<meta property="og:description" content="背景有以下场景： 接口1依赖了服务A、B、C、D的不同接口，并且每个接口业务逻辑的都是互相独立的，所以该接口至少需要发起4次远程调用。 在微服务架构下，这种场景非常常见，想要提高接口的RT，很容易想到使用多线程方式调用不同的外部接口，最后组装数据，将结果返回给客户端。 img 项目中使用了RequestContextHolder获取web线程的上下文信息，如请求头、cookie等。  注：Requ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://confluence.fpi-inc.site/download/attachments/25854445/%E6%95%B0%E6%8D%AE%E8%81%9A%E5%90%88-%E5%BC%82%E6%AD%A5.png?version=1&modificationDate=1650265601267&api=v2">
+<meta property="og:image" content="http://confluence.fpi-inc.site/download/attachments/25854445/RequestContextHolder.png?version=1&modificationDate=1650243891293&api=v2">
+<meta property="og:image" content="http://confluence.fpi-inc.site/download/attachments/25854445/get-user-info-error.png?version=1&modificationDate=1650245925874&api=v2">
+<meta property="og:image" content="http://confluence.fpi-inc.site/download/attachments/25854445/get-request-attribute-error.png?version=1&modificationDate=1650249216038&api=v2">
+<meta property="og:image" content="https://p0.meituan.net/travelcube/31bad766983e212431077ca8da92762050214.png">
+<meta property="og:image" content="http://confluence.fpi-inc.site/download/attachments/25854445/reject-policy.png?version=3&modificationDate=1650260131588&api=v2">
+<meta property="article:published_time" content="2022-04-16T11:09:13.000Z">
+<meta property="article:modified_time" content="2022-04-19T02:06:56.622Z">
+<meta property="article:author" content="Sam">
+<meta property="article:tag" content="踩坑记录">
+<meta property="article:tag" content="ThreadLocal">
+<meta property="article:tag" content="Async">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://confluence.fpi-inc.site/download/attachments/25854445/%E6%95%B0%E6%8D%AE%E8%81%9A%E5%90%88-%E5%BC%82%E6%AD%A5.png?version=1&modificationDate=1650265601267&api=v2">
+
+<link rel="canonical" href="http://example.com/2022/04/16/%E4%BD%BF%E7%94%A8@Async%E8%83%BD%E6%8F%90%E9%AB%98%E6%8E%A5%E5%8F%A3%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%E5%90%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用@Async能提高接口响应速度吗 | Sam的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sam的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/16/%E4%BD%BF%E7%94%A8@Async%E8%83%BD%E6%8F%90%E9%AB%98%E6%8E%A5%E5%8F%A3%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%E5%90%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/siage.png">
+      <meta itemprop="name" content="Sam">
+      <meta itemprop="description" content="Never Stop Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sam的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用@Async能提高接口响应速度吗
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-16 19:09:13" itemprop="dateCreated datePublished" datetime="2022-04-16T19:09:13+08:00">2022-04-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-19 10:06:56" itemprop="dateModified" datetime="2022-04-19T10:06:56+08:00">2022-04-19</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/04/16/%E4%BD%BF%E7%94%A8@Async%E8%83%BD%E6%8F%90%E9%AB%98%E6%8E%A5%E5%8F%A3%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%E5%90%97/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/04/16/使用@Async能提高接口响应速度吗/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有以下场景：</p>
+<p>接口1依赖了服务A、B、C、D的不同接口，并且每个接口业务逻辑的都是互相独立的，所以该接口至少需要发起4次远程调用。</p>
+<p>在微服务架构下，这种场景非常常见，想要提高接口的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Response_time_(technology)">RT</a>，很容易想到使用多线程方式调用不同的外部接口，最后组装数据，将结果返回给客户端。</p>
+<p><img src="http://confluence.fpi-inc.site/download/attachments/25854445/%E6%95%B0%E6%8D%AE%E8%81%9A%E5%90%88-%E5%BC%82%E6%AD%A5.png?version=1&modificationDate=1650265601267&api=v2" alt="img">img</p>
+<p>项目中使用了<code>RequestContextHolder</code>获取web线程的上下文信息，如请求头、cookie等。</p>
+<blockquote>
+<p>注：RequestContextHolder实际使用了ThreadLocal来传递上下文信息</p>
+<p><img src="http://confluence.fpi-inc.site/download/attachments/25854445/RequestContextHolder.png?version=1&modificationDate=1650243891293&api=v2" alt="img">img</p>
+</blockquote>
+<h2 id="使用-Async"><a href="#使用-Async" class="headerlink" title="使用@Async"></a>使用@Async</h2><p>在SpringBoot中可以使用<code>@EnableAsync</code>注解开启异步编程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableAsync(proxyTargetClass = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IpesServerApplication</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(IpesServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在需要异步调用的方法上添加<code>@Async</code>注解并将方法的返回值设置为Future</p>
+<blockquote>
+<p>注：CompletableFuture是Future的实现类</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Async</span></span><br><span class="line"><span class="function">CompletableFuture&lt;String&gt; <span class="title">getAsyncResult</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Async通过AOP实现，实际调用<code>CompletableFuture.supplyAsync((Supplier&lt;U&gt; supplier,Executor executor)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.springframework.aop.interceptor.AsyncExecutionAspectSupport#doSubmit</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">doSubmit</span><span class="params">(Callable&lt;Object&gt; task, AsyncTaskExecutor executor, Class&lt;?&gt; returnType)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (CompletableFuture.class.isAssignableFrom(returnType)) &#123;</span><br><span class="line">    <span class="keyword">return</span> CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> task.call();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> CompletionException(ex);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, executor);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (ListenableFuture.class.isAssignableFrom(returnType)) &#123;</span><br><span class="line">    <span class="keyword">return</span> ((AsyncListenableTaskExecutor) executor).submitListenable(task);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (Future.class.isAssignableFrom(returnType)) &#123;</span><br><span class="line">    <span class="keyword">return</span> executor.submit(task);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    executor.submit(task);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里需要注意，SpringBoot2.1之前的版本，如果项目中不存在<code>org.springframework.core.task.TaskExecutor</code>线程池，Spring会创建一个默认的线程池<code>SimpleAsyncTaskExecutor</code>处理异步请求。</p>
+<blockquote>
+<p>注：TaskExecutor是<code>java.util.concurrent.Executor</code>的子类</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.springframework.aop.interceptor.AsyncExecutionInterceptor#getDefaultExecutor</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Executor <span class="title">getDefaultExecutor</span><span class="params">(BeanFactory beanFactory)</span> </span>&#123;</span><br><span class="line">  Executor defaultExecutor = <span class="keyword">super</span>.getDefaultExecutor(beanFactory);</span><br><span class="line">  <span class="keyword">return</span> (defaultExecutor != <span class="keyword">null</span> ? defaultExecutor : <span class="keyword">new</span> SimpleAsyncTaskExecutor());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>SimpleAsyncTaskExecutor</code>有个大坑，每次提交任务后，都会创建一个线程！如果不断向线程池提交任务，很可能会造成系统OOM！！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.springframework.core.task.SimpleAsyncTaskExecutor#doExecute</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doExecute</span><span class="params">(Runnable task)</span> </span>&#123;</span><br><span class="line">  Thread thread = (<span class="keyword">this</span>.threadFactory != <span class="keyword">null</span> ? <span class="keyword">this</span>.threadFactory.newThread(task) : createThread(task));</span><br><span class="line">  thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果是SpringBoot2.1以后的版本，会自动注入一个用于异步调用的默认线程池：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration</span></span><br><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="meta">@Bean(name = &#123; APPLICATION_TASK_EXECUTOR_BEAN_NAME,</span></span><br><span class="line"><span class="meta">        AsyncAnnotationBeanPostProcessor.DEFAULT_TASK_EXECUTOR_BEAN_NAME &#125;)</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(Executor.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ThreadPoolTaskExecutor <span class="title">applicationTaskExecutor</span><span class="params">(TaskExecutorBuilder builder)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> builder.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：该线程池默认bean名称为<code>applicationTaskExecutor</code>，使用了无界队列</p>
+</blockquote>
+<h2 id="使用RequestContextHolder获取线程上下文"><a href="#使用RequestContextHolder获取线程上下文" class="headerlink" title="使用RequestContextHolder获取线程上下文"></a>使用RequestContextHolder获取线程上下文</h2><blockquote>
+<p>注：获取请求头、cookie信息</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// com.fpi.ipes.async.demo.util.CurrentUserUtil</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getHeader</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">  RequestAttributes holder = RequestContextHolder.getRequestAttributes();</span><br><span class="line">  <span class="keyword">if</span>(holder!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    HttpServletRequest request = ((ServletRequestAttributes)holder).getRequest();</span><br><span class="line">    <span class="comment">//先找cookie</span></span><br><span class="line">    Cookie[] cookies = request.getCookies();</span><br><span class="line">    <span class="keyword">if</span> (cookies != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cookie.getName().equalsIgnoreCase(name)) &#123;</span><br><span class="line">          <span class="keyword">return</span> cookie.getValue();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//再找header</span></span><br><span class="line">    <span class="keyword">return</span> request.getHeader(name);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么问题来了！由于使用另外的线程池进行实际接口的调用，线程的上下文无法进行传递，部分使用到<code>CurrentUserUtil</code>的接口就无法正常执行。</p>
+<p><img src="http://confluence.fpi-inc.site/download/attachments/25854445/get-user-info-error.png?version=1&modificationDate=1650245925874&api=v2" alt="img">img</p>
+<p>解决方法：</p>
+<p>自定义个线程池，在提交任务到线程池时，将当前线程的上下文传递进去</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolExecutorConfig</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Bean(destroyMethod = &quot;shutdown&quot;)</span></span><br><span class="line">  <span class="meta">@Qualifier(Constants.EXTERNAL_SERVICE_TASK_EXECUTOR_BEAN_NAME)</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> ThreadPoolTaskExecutor <span class="title">externalServiceTaskExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ThreadPoolTaskExecutor executor = <span class="keyword">new</span> ThreadPoolTaskExecutor();</span><br><span class="line">    executor.setCorePoolSize(Constants.CPU_COUNT);</span><br><span class="line">    executor.setMaxPoolSize(Constants.CPU_COUNT);</span><br><span class="line">    executor.setQueueCapacity(<span class="number">20</span>);</span><br><span class="line">    executor.setThreadNamePrefix(Constants.EXTERNAL_SERVICE_THREAD_POOL_PREFIX);</span><br><span class="line">    executor.setTaskDecorator(runnable -&gt; &#123;</span><br><span class="line">      RequestAttributes requestAttributes = <span class="keyword">null</span>;</span><br><span class="line">      <span class="comment">// 这个时候还是同步状态</span></span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 获取当前线程上下文</span></span><br><span class="line">        requestAttributes = RequestContextHolder.currentRequestAttributes();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IllegalStateException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">      RequestAttributes finalRequestAttributes = requestAttributes;</span><br><span class="line">      <span class="comment">// 提交任务时将当前线程上下文设置到子线程的RequestContextHolder中</span></span><br><span class="line">      <span class="keyword">return</span> () -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          RequestContextHolder.setRequestAttributes(finalRequestAttributes, <span class="keyword">true</span>);</span><br><span class="line">          runnable.run();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          <span class="comment">// 执行后清除子线程的上下文</span></span><br><span class="line">          RequestContextHolder.resetRequestAttributes();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line">    executor.setRejectedExecutionHandler(<span class="keyword">new</span> ThreadPoolExecutor.CallerRunsPolicy());</span><br><span class="line">    <span class="keyword">return</span> executor;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果项目中有多个TaskExecutor线程池，可在方法指定线程池</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Async(&quot;yourThreadTaskExecutor&quot;)</span></span><br><span class="line"><span class="function">CompletableFuture&lt;String&gt; <span class="title">getAsyncResult</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本文代码片段如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> IndexParkDataVO <span class="title">getParkDataAsync</span><span class="params">(IndexQuery query)</span> </span>&#123;</span><br><span class="line">  log.info(<span class="string">&quot;线程[&#123;&#125;]开始工作&quot;</span>, Thread.currentThread().getName());</span><br><span class="line">  <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">  IndexParkDataVO vo = <span class="keyword">new</span> IndexParkDataVO();</span><br><span class="line">  vo.setWeatherInfo(<span class="keyword">new</span> WeatherInfo());</span><br><span class="line">  AtomicReference&lt;WeatherInfo&gt; forcastWeather = <span class="keyword">new</span> AtomicReference&lt;&gt;();</span><br><span class="line">  <span class="comment">// 天气信息</span></span><br><span class="line">  CompletableFuture&lt;WeatherInfo&gt; amapResult = amapService.getWeatherInfoAsync(query.getCity(), <span class="string">&quot;base&quot;</span>);</span><br><span class="line">  amapResult.whenComplete((weatherInfo, throwable) -&gt; vo.setWeatherInfo(weatherInfo));</span><br><span class="line">  </span><br><span class="line">  CompletableFuture&lt;WeatherInfo&gt; amapForcastResult = amapService.getWeatherInfoAsync(query.getCity(), <span class="string">&quot;all&quot;</span>);</span><br><span class="line">  amapForcastResult.whenComplete((weatherInfo, throwable) -&gt; forcastWeather.set(weatherInfo));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 园区档案</span></span><br><span class="line">  CompletableFuture&lt;ParkInfo&gt; parkInfoResult = parkInfoService.getParkInfoAsync();</span><br><span class="line">  parkInfoResult.whenComplete((parkInfo, throwable) -&gt; vo.setParkInfo(parkInfo));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// AQI</span></span><br><span class="line">  CompletableFuture&lt;AqiInfo&gt; aqiResult = monitorService.getAqiDataAsync();</span><br><span class="line">  aqiResult.whenComplete((aqi, throwable) -&gt; vo.setAqiInfo(aqi));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 用户信息</span></span><br><span class="line">  CompletableFuture&lt;UserInfo&gt; userInfoResult = userCenterService.getUserInfoAsync();</span><br><span class="line">  userInfoResult.whenComplete((userInfo, throwable) -&gt; vo.setUserInfo(userInfo));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 等待所有线程完成</span></span><br><span class="line">  CompletableFuture.allOf(amapResult, amapForcastResult, parkInfoResult, aqiResult, userInfoResult).join();</span><br><span class="line"></span><br><span class="line">  vo.getWeatherInfo().setForecasts(forcastWeather.get().getForecasts());</span><br><span class="line">  log.info(<span class="string">&quot;getParkDataAsync耗时&#123;&#125;ms&quot;</span>, (System.currentTimeMillis() - start));</span><br><span class="line">  <span class="keyword">return</span> vo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>再次发起调用，可以看到异步调用对比同步调用耗时有明显改善：</p>
+<blockquote>
+<p>这里模拟发起5个远程调用，每个请求耗时1s</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2022-04-18 09:56:14.938 [Thread-2] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:51 - getParkData耗时5007ms</span><br><span class="line"></span><br><span class="line">2022-04-18 09:56:16.040 [Thread-3] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时1011ms</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么这样问题就完满解决了吗？非也！对接口进行了简单的压测后发现，在并发场景下，子线程由于无法获取的父线程的上下文，会出现<code>No thread-bound request found</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: No thread-bound request found: Are you referring to request attributes outside of an actual web request, or processing a request outside of the originally receiving thread? If you are actually operating within a web request and still receive this message, your code is probably running outside of DispatcherServlet: In this <span class="keyword">case</span>, use RequestContextListener or RequestContextFilter to expose the current request.</span><br><span class="line">    at org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes(RequestContextHolder.java:131)</span><br></pre></td></tr></table></figure>
+
+<p>查看源码发现，是因为获取当前线程的ThreadLocal为空导致的</p>
+<p><img src="http://confluence.fpi-inc.site/download/attachments/25854445/get-request-attribute-error.png?version=1&modificationDate=1650249216038&api=v2" alt="img">img</p>
+<p>那么为什么会出现这个异常呢？答案很简单——线程池的调度模型。回顾一下任务提交到线程池的流程</p>
+<p>​    </p>
+<p><img src="https://p0.meituan.net/travelcube/31bad766983e212431077ca8da92762050214.png" alt="img">img</p>
+<p>当工作线程数达到核心线程数后，往线程池提交的任务一律会进入阻塞队列。存在并发时，使用@Async注解的部分方法被提交到了队列中，队列已满时，触发饱和策略。</p>
+<p><img src="http://confluence.fpi-inc.site/download/attachments/25854445/reject-policy.png?version=3&modificationDate=1650260131588&api=v2" alt="img">img</p>
+<p>答案出来了！<strong>并发场景下，线程池触发饱和策略，使用<code>CallRunsPolicy</code>，即由使用调用的主线程来执行（在本文可以理解为Tomcat的http线程）。 执行任务后将调用线程的上下文清除，实际也将主线程的上下文清除，所以同一个主线程内的子线程再获取主线程的<code>RequestContextHolder</code>内的ThreadLocal，获取到的是null。</strong></p>
+<blockquote>
+<p>补充：高并发场景下，由于触发线程池饱和策略，主线程内的</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提交任务时将当前线程上下文设置到子线程的RequestContextHolder中</span></span><br><span class="line"><span class="keyword">return</span> () -&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">  	RequestContextHolder.setRequestAttributes(finalRequestAttributes, <span class="keyword">true</span>);</span><br><span class="line">  	runnable.run();</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">  <span class="comment">// 执行后清除子线程的上下文</span></span><br><span class="line">    RequestContextHolder.resetRequestAttributes();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果不使用CallRunsPolicy行不行？再看看JDK提供的几种线程池饱和策略</p>
+<ul>
+<li>AbortPolicy：直接抛出异常。</li>
+<li>CallerRunsPolicy：调用执行自己的线程运行任务，也就是调用的主线程来执行，不使用线程池中的线程。</li>
+<li>DiscardOldestPolicy：此策略将丢弃最早的未处理的任务请求，并执行当前任务。</li>
+<li>DiscardPolicy：不处理新任务，直接丢弃掉。</li>
+</ul>
+<p>综合来看只有<code>CallerRunsPolicy</code>更加符合本文的应用场景。</p>
+<p>那么能不能将线程池阻塞队列的大小设置大一点呢？看下50并发，队列大小为300的执行情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">2022-04-18 13:41:38.883 [Thread-13] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时10062ms</span><br><span class="line">2022-04-18 13:41:39.848 [Thread-34] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时11034ms</span><br><span class="line">2022-04-18 13:41:39.891 [Thread-31] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时11070ms</span><br><span class="line">2022-04-18 13:41:40.845 [Thread-38] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时12028ms</span><br><span class="line">2022-04-18 13:41:40.846 [Thread-17] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时12025ms</span><br><span class="line">2022-04-18 13:41:40.851 [Thread-14] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时12030ms</span><br><span class="line">2022-04-18 13:41:40.885 [Thread-36] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时12063ms</span><br><span class="line">2022-04-18 13:41:41.847 [Thread-41] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时13030ms</span><br><span class="line">2022-04-18 13:41:41.862 [Thread-49] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时13044ms</span><br><span class="line">2022-04-18 13:41:42.848 [Thread-2] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时14027ms</span><br><span class="line">2022-04-18 13:41:42.863 [Thread-10] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时14048ms</span><br><span class="line">2022-04-18 13:41:43.848 [Thread-22] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时15032ms</span><br><span class="line">2022-04-18 13:41:43.854 [Thread-18] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时15039ms</span><br><span class="line">2022-04-18 13:41:44.856 [Thread-21] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时16039ms</span><br><span class="line">2022-04-18 13:41:44.856 [Thread-47] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时16034ms</span><br><span class="line">2022-04-18 13:41:44.875 [Thread-46] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时16054ms</span><br><span class="line">2022-04-18 13:41:45.854 [Thread-50] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时17040ms</span><br><span class="line">2022-04-18 13:41:46.855 [Thread-8] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时18042ms</span><br><span class="line">2022-04-18 13:41:46.891 [Thread-7] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时18071ms</span><br><span class="line">2022-04-18 13:41:47.859 [Thread-9] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时19041ms</span><br><span class="line">2022-04-18 13:41:48.857 [Thread-3] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时20035ms</span><br><span class="line">2022-04-18 13:41:48.861 [Thread-39] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时20043ms</span><br><span class="line">2022-04-18 13:41:48.861 [Thread-26] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时20047ms</span><br><span class="line">2022-04-18 13:41:49.858 [Thread-51] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时21045ms</span><br><span class="line">2022-04-18 13:41:49.871 [Thread-28] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时21054ms</span><br><span class="line">2022-04-18 13:41:50.862 [Thread-12] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时22040ms</span><br><span class="line">2022-04-18 13:41:50.863 [Thread-20] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时22042ms</span><br><span class="line">2022-04-18 13:41:50.863 [Thread-42] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时22048ms</span><br><span class="line">2022-04-18 13:41:51.860 [Thread-43] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时23047ms</span><br><span class="line">2022-04-18 13:41:51.862 [Thread-40] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时23049ms</span><br><span class="line">2022-04-18 13:41:51.864 [Thread-32] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时23051ms</span><br><span class="line">2022-04-18 13:41:51.879 [Thread-25] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时23062ms</span><br><span class="line">2022-04-18 13:41:52.861 [Thread-27] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时24040ms</span><br><span class="line">2022-04-18 13:41:52.865 [Thread-5] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时24050ms</span><br><span class="line">2022-04-18 13:41:53.862 [Thread-48] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时25049ms</span><br><span class="line">2022-04-18 13:41:53.881 [Thread-23] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时25062ms</span><br><span class="line">2022-04-18 13:41:53.939 [Thread-19] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时25126ms</span><br><span class="line">2022-04-18 13:41:54.867 [Thread-35] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时26050ms</span><br><span class="line">2022-04-18 13:41:54.899 [Thread-33] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时26087ms</span><br><span class="line">2022-04-18 13:41:55.873 [Thread-44] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时27055ms</span><br><span class="line">2022-04-18 13:41:55.941 [Thread-37] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时27124ms</span><br><span class="line">2022-04-18 13:41:56.870 [Thread-15] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时28049ms</span><br><span class="line">2022-04-18 13:41:56.886 [Thread-24] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时28072ms</span><br><span class="line">2022-04-18 13:41:57.867 [Thread-16] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时29045ms</span><br><span class="line">2022-04-18 13:41:57.887 [Thread-11] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时29074ms</span><br><span class="line">2022-04-18 13:41:58.870 [Thread-30] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时30049ms</span><br><span class="line">2022-04-18 13:41:58.888 [Thread-4] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时30068ms</span><br><span class="line">2022-04-18 13:41:59.871 [Thread-6] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时31051ms</span><br><span class="line">2022-04-18 13:41:59.889 [Thread-45] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时31071ms</span><br><span class="line">2022-04-18 13:42:00.872 [Thread-29] INFO  c.f.i.a.d.s.impl.IndexServiceImpl line:80 - getParkDataAsync耗时32057ms</span><br></pre></td></tr></table></figure>
+
+<p>可以看到在并发场景下，即使调整了队列大小，RT并没有因为使用多线程而有所提升。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>如果想使用@Async来提升接口RT，并非完全无用，但只适合在低并发的场景下使用，因为本质上它还是同步阻塞模型。</p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><p>本文的源代码你可以在gitlab中找到：<a target="_blank" rel="noopener" href="https://git.fpi-inc.site/linsensen/ipes-async-demo">ipes-async-demo</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" rel="tag"># 踩坑记录</a>
+              <a href="/tags/ThreadLocal/" rel="tag"># ThreadLocal</a>
+              <a href="/tags/Async/" rel="tag"># Async</a>
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/21/Java%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/" rel="prev" title="Java异步编程实践">
+      <i class="fa fa-chevron-left"></i> Java异步编程实践
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Async"><span class="nav-number">2.</span> <span class="nav-text">使用@Async</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8RequestContextHolder%E8%8E%B7%E5%8F%96%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">3.</span> <span class="nav-text">使用RequestContextHolder获取线程上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84"><span class="nav-number">5.</span> <span class="nav-text">附</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sam"
+      src="/avatar/siage.png">
+  <p class="site-author-name" itemprop="name">Sam</p>
+  <div class="site-description" itemprop="description">Never Stop Learning</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:linsensena@gmail.com" title="E-Mail → mailto:linsensena@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://samifie.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2022/04/16/%E4%BD%BF%E7%94%A8@Async%E8%83%BD%E6%8F%90%E9%AB%98%E6%8E%A5%E5%8F%A3%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%E5%90%97/";
+    this.page.identifier = "2022/04/16/使用@Async能提高接口响应速度吗/";
+    this.page.title = "使用@Async能提高接口响应速度吗";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samifie.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
